@@ -1,76 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.0.0">
   <help_text/>
-  <zoom_level>19</zoom_level>
+  <zoom_level>20</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>114</x>
-      <y>133</y>
-      <w>285</w>
-      <h>209</h>
+      <x>60</x>
+      <y>100</y>
+      <w>320</w>
+      <h>220</h>
     </coordinates>
     <panel_attributes>Events
 --
-EventId: int {PK}
-Date: date
-Name: nvarchar(128)
-Attendees: int
-Description: ntext</panel_attributes>
+*EventId: int {PK}*
+*Date: date*
+*Name: nvarchar(128)*
+Attendees: int = -1
+Description: ntext = 'Dette event har ingen beskrivelse'</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1064</x>
-      <y>133</y>
-      <w>228</w>
-      <h>152</h>
+      <x>980</x>
+      <y>100</y>
+      <w>320</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>Ratings
 --
 RatingId: int {PK}
-RatingValue: int
-Description: ntext</panel_attributes>
+*RatingValue: tinyint*
+*Description: ntext*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>380</x>
-      <y>133</y>
-      <w>247</w>
-      <h>76</h>
+      <x>360</x>
+      <y>100</y>
+      <w>220</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>m1=*
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>589</x>
-      <y>133</y>
-      <w>285</w>
-      <h>152</h>
+      <x>540</x>
+      <y>100</y>
+      <w>300</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>EventRatings
 --
 EventRatingId: int {PK}
-EventId: int {FK}
-RatingId: int {FK}</panel_attributes>
+*EventId: int {FK}*
+*RatingId: int {FK}*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>855</x>
-      <y>133</y>
-      <w>247</w>
-      <h>76</h>
+      <x>820</x>
+      <y>100</y>
+      <w>200</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>m1=*
 m2=1</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>460</x>
+      <y>0</y>
+      <w>440</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Mandatory values are with *bold*</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
