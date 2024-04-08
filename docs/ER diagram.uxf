@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <help_text/>
+  <zoom_level>19</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>114</x>
+      <y>133</y>
+      <w>285</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>Events
+--
+EventId: int {PK}
+Date: date
+Name: nvarchar(128)
+Attendees: int
+Description: ntext</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1064</x>
+      <y>133</y>
+      <w>228</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Ratings
+--
+RatingId: int {PK}
+RatingValue: int
+Description: ntext</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>380</x>
+      <y>133</y>
+      <w>247</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>m1=*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>589</x>
+      <y>133</y>
+      <w>285</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>EventRatings
+--
+EventRatingId: int {PK}
+EventId: int {FK}
+RatingId: int {FK}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>855</x>
+      <y>133</y>
+      <w>247</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>m1=*
+m2=1</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

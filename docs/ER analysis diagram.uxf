@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.0.0">
-  <zoom_level>19</zoom_level>
+  <zoom_level>20</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>95</y>
-      <w>190</w>
-      <h>57</h>
+      <x>320</x>
+      <y>80</y>
+      <w>200</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>Events
 
@@ -17,10 +17,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1102</x>
-      <y>95</y>
-      <w>171</w>
-      <h>57</h>
+      <x>880</x>
+      <y>80</y>
+      <w>180</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>Ratings</panel_attributes>
     <additional_attributes/>
@@ -28,10 +28,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>741</x>
-      <y>95</y>
-      <w>399</w>
-      <h>76</h>
+      <x>500</x>
+      <y>80</y>
+      <w>420</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>m1=*
 m2=*</panel_attributes>
