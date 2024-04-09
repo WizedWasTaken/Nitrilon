@@ -25,7 +25,7 @@ jobs:
       run: dotnet tool install --global Versionize
       working-directory: src/Nitrilon
 
-    - name: Versioning
+    - name: Versioning & Setting up git
       id: versionize
       run: |
         git config --local user.email "<jegerfattig1@gmail.com>"
