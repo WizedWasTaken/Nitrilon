@@ -1,0 +1,6 @@
+@Nitrilon.Api_HostAddress = http://localhost:5231
+
+GET {{Nitrilon.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
