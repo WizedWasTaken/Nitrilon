@@ -14,7 +14,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: dessant/issue-states@v3
-        with:
-          open-issue-columns: 'Todo, In Progress'
-          closed-issue-columns: 'Done'
-          log-output: false
