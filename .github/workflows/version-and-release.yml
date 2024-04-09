@@ -42,7 +42,7 @@ jobs:
       if: steps.versionize.outcome == 'success'
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         branch: ${{ github.ref }}
         tags: true
 
@@ -50,7 +50,7 @@ jobs:
       if: steps.versionize.outcome == 'success'
       uses: "actions/github-script@v5"
       with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
+        github-token: "${{ secrets.PERSONAL_ACCESS_TOKEN }}"
         script: |
           try {
             const tags_url = context.payload.repository.tags_url + "?per_page=1"
