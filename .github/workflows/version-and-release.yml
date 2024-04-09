@@ -19,13 +19,16 @@ jobs:
 
     - name: Build
       run: dotnet build
+      working-directory: src/Nitrilon
 
     - name: Install Versionize
       run: dotnet tool install --global Versionize
+      working-directory: src/Nitrilon
 
     - name: Versioning
       id: versionize
       run: versionize --changelog-all --skip-dirty
+      working-directory: src/Nitrilon
       continue-on-error: true
 
     - name: No release required
