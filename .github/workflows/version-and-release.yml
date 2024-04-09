@@ -27,7 +27,7 @@ jobs:
 
     - name: Versioning
       id: versionize
-      run: 
+      run: |
         git config --local user.email "<jegerfattig1@gmail.com>"
         git config --local user.name "<WizedWasTaken>"
         versionize --changelog-all --skip-dirty
@@ -37,11 +37,6 @@ jobs:
     - name: No release required
       if: steps.versionize.outcome != 'success'
       run: echo "Skipping Release. No release required."
-
-    - name: Setup git
-      run: |
-        git config --local user.email "<jegerfattig1@gmail.com>"
-        git config --local user.name "<WizedWasTaken>"
         
     - name: Push changes to GitHub
       if: steps.versionize.outcome == 'success'
