@@ -1,8 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Nitrilon.Api.schemas;
+﻿using Microsoft.AspNetCore.Mvc;
 using Nitrilon.Api.types;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Nitrilon.Api.Controllers
 {
@@ -13,10 +10,6 @@ namespace Nitrilon.Api.Controllers
         private Event _event;
 
         [HttpGet(Name = "GetAllEvents")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Produces("application/json")]
-        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(EventExample))]
         public IActionResult GetEvents()
         {
             List<Event> events = new List<Event>();
