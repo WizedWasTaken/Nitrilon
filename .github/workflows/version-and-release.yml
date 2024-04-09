@@ -27,7 +27,10 @@ jobs:
 
     - name: Versioning
       id: versionize
-      run: versionize --changelog-all --skip-dirty
+      run: 
+        git config --local user.email "<jegerfattig1@gmail.com>"
+        git config --local user.name "<WizedWasTaken>"
+        versionize --changelog-all --skip-dirty
       working-directory: src/Nitrilon
       continue-on-error: true
 
