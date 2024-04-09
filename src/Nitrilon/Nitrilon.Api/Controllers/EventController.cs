@@ -57,7 +57,9 @@ namespace Nitrilon.Api.Controllers
             // Everything is temporary, so we will simulate getting events from a database.!!!
             try
             {
-                if (_events.Find(e => e.Id == @event.Id) != null)
+                // Check if the event already exists
+                int eventId = @event.Id;
+                if (_events.Find(e => e.Id == eventId) != null)
                 {
                     return BadRequest("Dette event findes allerede i systemet.");
                 }
