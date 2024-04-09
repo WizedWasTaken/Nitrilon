@@ -1,4 +1,7 @@
 
+using Nitrilon.Api.schemas;
+using Swashbuckle.AspNetCore.Filters;
+
 namespace Nitrilon.Api
 {
     public class Program
