@@ -8,7 +8,8 @@ namespace Nitrilon.Api.Controllers
     public class EventController : Controller
     {
         private Event _event;
-        List<Event> events = new List<Event>();
+        private static List<Event> _events = new(); // List of events (remove when database is implemented)
+
 
         /**
          * Method to get all events from database.
@@ -19,8 +20,7 @@ namespace Nitrilon.Api.Controllers
             // Everything is temporary, so we will simulate getting events from a database.!!!
             try
             {
-                GenerateEvents();
-                return Ok(events);
+                return Ok(_events);
             }
             catch
             {
@@ -37,8 +37,9 @@ namespace Nitrilon.Api.Controllers
             // Everything is temporary, so we will simulate getting events from a database.!!!
             try
             {
-                GenerateEvents();
-                _event = events.Find(e => e.Id == id);
+                _event = _events.Find(e => e.Id == id);
+                if (_event == null) return NotFound();
+
                 return Ok(_event);
             }
             catch
@@ -46,27 +47,46 @@ namespace Nitrilon.Api.Controllers
                 return BadRequest();
             }
         }
-        
+
         private void GenerateEvents()
         {
-            // Temporary solution to clear the list
-            foreach (var _event in events)
+            // Everything is temporary, so we will simulate getting events from a database.!!!
+            try
             {
-                events.Remove(_event);
-            }
-
-            // Simulate getting events from a database
-            for (int i = 1; i <= 5; i++)
-            {
-                _event = new Event
+                // Check if the event already exists
+                int eventId = @event.Id;
+                if (_events.Find(e => e.Id == eventId) != null)
                 {
-                    Id = i,
-                    Name = $"Event {i}",
-                    Date = $"2021-01-0{i}",
-                    Attendees = $"John Doe, Jane Doe",
-                    Description = $"This is event {i}"
-                };
-                events.Add(_event);
+                    return BadRequest("Dette event findes allerede i systemet.");
+                }
+
+                _events.Add(@event);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest("Der skete en fejl. Prøv igen senere.");
+            }
+        }
+
+        /*
+         *  Method to delete a specific event from the database.
+         */
+        [HttpDelete("{id}", Name = "DeleteEvent")]
+        public IActionResult DeleteEvent(int id)
+        {
+            // Everything is temporary, so we will simulate getting events from a database.!!!
+            try
+            {
+                _event = _events.Find(e => e.Id == id);
+                if (_event == null) return NotFound();
+
+                _events.Remove(_event);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
             }
         }
     }

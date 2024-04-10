@@ -15,6 +15,6 @@ jobs:
     steps:
       - uses: dessant/issue-states@v3
         with:
-          open-issue-columns: 'Todo, In Progress'
+          open-issue-columns: 'To do, In progress'
           closed-issue-columns: 'Done'
-          log-output: false
+          log-output: true
