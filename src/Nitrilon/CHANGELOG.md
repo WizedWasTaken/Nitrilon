@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="1.0.1"></a>
+## [1.0.1](https://www.github.com/WizedWasTaken/Nitrilon/releases/tag/v1.0.1) (2024-04-10)
+
+### Other
+
+* fixed ([20f325b](https://www.github.com/WizedWasTaken/Nitrilon/commit/20f325b8421abbbce5b62cfc60ccfe5e8f24df35))
+* fixed a lot of stuff ([02035ab](https://www.github.com/WizedWasTaken/Nitrilon/commit/02035aba1659ae17a121111fc8f018668cfd87a6))
+* mby fix? ([1e36e35](https://www.github.com/WizedWasTaken/Nitrilon/commit/1e36e35a04b502fca7fd47e850c87fb5fba3cb31))
+
 <a name="1.0.0"></a>
 ## [1.0.0](https://www.github.com/WizedWasTaken/Nitrilon/releases/tag/v1.0.0) (2024-04-09)
 
