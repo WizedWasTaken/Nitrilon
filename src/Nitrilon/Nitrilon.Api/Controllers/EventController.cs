@@ -46,7 +46,7 @@ namespace Nitrilon.Api.Controllers
                 return BadRequest();
             }
         }
-
+        
         private void GenerateEvents()
         {
             // Temporary solution to clear the list
