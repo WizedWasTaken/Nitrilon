@@ -1,4 +1,4 @@
-﻿namespace Nitrilon.Api.types
+﻿namespace Nitrilon.Entities
 {
     public class Event
     {
