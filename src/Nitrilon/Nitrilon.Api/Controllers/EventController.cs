@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Nitrilon.Api.types;
 using System.Data;
 using System.Diagnostics;
+using Nitrilon.Entities;
 
 namespace Nitrilon.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class EventController : Controller
     {
         private Event _event;
@@ -21,6 +21,7 @@ namespace Nitrilon.Api.Controllers
          * Method to get all events from database.
          */
         [HttpGet(Name = "GetAllEvents")]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> GetEvents()
         {
             try
@@ -31,7 +32,7 @@ namespace Nitrilon.Api.Controllers
                     {
                         Id = reader.GetInt32("EventId"), // Using column names is safer than column indices
                         Name = reader.GetString("Name"),
-                        Date = reader.GetDateTime("Date"),
+                        Date = reader.GetSqlDateTime("Date"),
                         Attendees = reader.GetInt32("Attendees"),
                         Description = reader.GetString("Description")
                     };
@@ -139,7 +140,7 @@ namespace Nitrilon.Api.Controllers
                 }
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return BadRequest();
             }
