@@ -8,6 +8,6 @@ namespace Nitrilon.Entities
 {
     public class Rating
     {
-        public int
+
     }
 }
