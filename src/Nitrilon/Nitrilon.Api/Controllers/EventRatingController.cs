@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Microsoft.AspNetCore.Mvc;
-using Nitrilon.Api.types;
+using Nitrilon.Entities;
 
 namespace Nitrilon.Api.Controllers
 {
@@ -24,20 +24,11 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                var eventRatings = await _context.ExecuteQueryAsync("SELECT * FROM EventRatings", reader =>
-                {
-                    return new EventRating
-                    {
-                        Id = reader.GetInt32("EventRatingId"),
-                        EventId = reader.GetInt32("EventId"),
-                        Rating = reader.GetInt32("RatingId")
-                    };
-                });
-                return Ok(eventRatings);
+                return Ok();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex);
             }
         }
 
@@ -49,23 +40,11 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                var eventRatings = await _context.ExecuteQueryAsync(
-                    $"SELECT * FROM EventRatings WHERE EventId = {id}",
-                    reader =>
-                    {
-                        return new EventRating
-                        {
-                            Id = reader.GetInt32("EventRatingId"),
-                            EventId = reader.GetInt32("EventId"),
-                            Rating = reader.GetInt32("RatingId")
-                        };
-                    });
-
-                return Ok(eventRatings);
+                return Ok();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while processing your request.");
+                return StatusCode(500, ex);
             }
         }
 
@@ -77,14 +56,11 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                newEventRating.Id = -1;
-                await _context.ExecuteNonQueryAsync(
-                    $"INSERT INTO EventRatings (EventId, RatingId) VALUES ({newEventRating.EventId}, {newEventRating.Rating})");
                 return Ok();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return StatusCode(500, ex);
             }
         }
     }

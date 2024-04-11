@@ -14,7 +14,7 @@
 - connectionString: string
 --
 + GetAllEvents() : List&lt;Event&gt;
-+ SaveEvent(eventToSave: Event) : int
++ Save(event: Event) : int
 
 
 
