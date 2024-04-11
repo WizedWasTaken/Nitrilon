@@ -13,4 +13,8 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Nitrilon.Entities\Nitrilon.Entities.csproj" />
+	</ItemGroup>
+
 </Project>
