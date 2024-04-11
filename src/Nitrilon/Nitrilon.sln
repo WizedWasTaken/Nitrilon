@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nitrilon.Api", "Nitrilon.Api\Nitrilon.Api.csproj", "{545A4A14-A32D-45CF-A76E-9B60CCD1491E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nitrilon.Entities", "Nitrilon.Entities\Nitrilon.Entities.csproj", "{686E83C9-4CFB-4349-93A8-3E109E0BF201}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nitrilon.Entities", "Nitrilon.Entities\Nitrilon.Entities.csproj", "{686E83C9-4CFB-4349-93A8-3E109E0BF201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nitrilon.DataAccess", "Nitrilon.DataAccess\Nitrilon.DataAccess.csproj", "{1453E397-BB2C-41D2-990F-8A58F7438C02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{686E83C9-4CFB-4349-93A8-3E109E0BF201}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{686E83C9-4CFB-4349-93A8-3E109E0BF201}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{686E83C9-4CFB-4349-93A8-3E109E0BF201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1453E397-BB2C-41D2-990F-8A58F7438C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1453E397-BB2C-41D2-990F-8A58F7438C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1453E397-BB2C-41D2-990F-8A58F7438C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1453E397-BB2C-41D2-990F-8A58F7438C02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
