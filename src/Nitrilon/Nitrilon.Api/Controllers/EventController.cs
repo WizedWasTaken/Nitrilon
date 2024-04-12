@@ -10,9 +10,11 @@ namespace Nitrilon.Api.Controllers
     [Route("api/[controller]")]
     public class EventController : Controller
     {
-        /*
-         * Method to get all events from database.
-         */
+        /// <summary>
+        /// Action method to get all events from the database.
+        /// </summary>
+        /// <returns>All events</returns>
+        /// <returns>500 if an exception occurs.</returns>
         [HttpGet(Name = "GetAllEvents")]
         [ProducesResponseType(200)]
         public ActionResult<IEnumerable<List<Event>>> GetEvents()
@@ -29,16 +31,27 @@ namespace Nitrilon.Api.Controllers
             }
         }
 
-
-        /*
-        * Method to get a specific event from database.
-        */
+        /// <summary>
+        /// Action method to get a specific event from the database.
+        /// </summary>
+        /// <param name="id">The id of the event to get.</param>
+        /// <returns>The event with the specified id.</returns>
+        /// <returns>404 if the event is not found.</returns>
         [HttpGet("{id}", Name = "GetEvent")]
-        public async Task<IActionResult> GetEvent(int id)
+        public IActionResult GetEvent(int id)
         {
             try
             {
-                return Ok();
+                Repository repo = new Repository();
+                Event result = repo.GetEventById(id);
+
+                // Quick check to see if the event was found.
+                // Honestly isn't required, but pretty nice to have 👨
+                if (result.Id == 0)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -46,9 +59,12 @@ namespace Nitrilon.Api.Controllers
             }
         }
 
-        /*
-         *  Method to add a new event to the database.
-         */
+        /// <summary>
+        /// Action method to add a new event to the database.
+        /// </summary>
+        /// <param name="newEvent">new event object</param>
+        /// <returns>new event id</returns>
+        /// <returns>500 if an exception occurs.</returns>
         [HttpPost(Name = "AddEvent")]
         public IActionResult AddEvent([FromBody] Event newEvent)
         {
@@ -64,16 +80,20 @@ namespace Nitrilon.Api.Controllers
             }
         }
 
-        /*
-         *  Method to update a specific event in the database.
-         */
+        /// <summary>
+        /// Action method to update an existing event in the database.
+        /// </summary>
+        /// <param name="updatedEvent">updated event object</param>
+        /// <returns>updated event</returns>
+        /// <returns>500 if an exception occurs.</returns>
         [HttpPut("{id}", Name = "UpdateEvent")]
-        public async Task<IActionResult> UpdateEvent(int id, [FromBody] Event updatedEvent)
+        public IActionResult UpdateEvent([FromBody] Event updatedEvent)
         {
-            // Everything is temporary, so we will simulate getting events from a database.!!!
             try
             {
-                return Ok();
+                Repository repo = new Repository();
+                Event result = repo.Update(updatedEvent);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -82,15 +102,26 @@ namespace Nitrilon.Api.Controllers
         }
 
 
-        /*
-         *  Method to delete a specific event from the database.
-         */
+        /// <summary>
+        /// Action method to delete an event from the database.
+        /// </summary>
+        /// <param name="id">id of the event to delete</param>
+        /// <returns>Rows affected</returns>
+        /// <returns>500 if an exception occurs.</returns>
+        /// <returns>404 if the event is not found.</returns>
         [HttpDelete("{id}", Name = "DeleteEvent")]
-        public async Task<IActionResult> DeleteEvent()
+        public IActionResult DeleteEvent(int id)
         {
             try
             {
-                return Ok();
+                Repository repo = new Repository();
+                int result = repo.DeleteEvent(id);
+
+                if (result == 0)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {

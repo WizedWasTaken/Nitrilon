@@ -1,60 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Nitrilon.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Nitrilon.Api.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class EventRatingController : ControllerBase
     {
-        private EventRating _eventRating;
-
-        /*
-         * Method to get all event ratings from database.
-         */
-        [HttpGet(Name = "GetAllEventRatings")]
-        public async Task<IActionResult> GetEventRatings()
+        [HttpPost]
+        [Route("rate")]
+        public IActionResult RateEvent([FromBody] int eventId, [FromBody] int rating)
         {
-            try
-            {
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
-        }
 
-        /*
-         * Method to get specific event ratings from database.
-         */
-        [HttpGet("{id}", Name = "GetEventRating")]
-        public async Task<IActionResult> GetEventRating(int id)
-        {
-            try
-            {
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
-        }
-
-        /*
-         *
-         */
-        [HttpPost(Name = "AddEventRating")]
-        public async Task<IActionResult> AddEventRating([FromBody] EventRating newEventRating)
-        {
-            try
-            {
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
+            return Ok();
         }
     }
 }
