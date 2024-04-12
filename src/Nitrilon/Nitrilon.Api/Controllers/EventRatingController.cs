@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Nitrilon.Entities;
 
 namespace Nitrilon.Api.Controllers
@@ -9,12 +8,6 @@ namespace Nitrilon.Api.Controllers
     public class EventRatingController : ControllerBase
     {
         private EventRating _eventRating;
-        private readonly DataContext _context;
-
-        public EventRatingController(DataContext context)
-        {
-            _context = context;
-        }
 
         /*
          * Method to get all event ratings from database.

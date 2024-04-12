@@ -15,12 +15,12 @@ namespace Nitrilon.Api.Controllers
          */
         [HttpGet(Name = "GetAllEvents")]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> GetEvents()
+        public ActionResult<IEnumerable<List<Event>>> GetEvents()
         {
             try
             {
                 Repository repo = new Repository();
-                var events = repo.getAllEvents();
+                var events = repo.GetAllEvents();
                 return Ok(events);
             }
             catch (Exception ex)
