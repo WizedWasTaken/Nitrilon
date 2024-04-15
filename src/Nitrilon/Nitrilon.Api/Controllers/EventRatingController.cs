@@ -25,12 +25,12 @@ namespace Nitrilon.Api.Controllers
         }
 
         [HttpPost(Name = "AddEventRating")]
-        public IActionResult AddEventRating(EventRating rating)
+        public IActionResult AddEventRating([FromQuery] int EventId, [FromQuery] int RatingId)
         {
             try
             {
                 Repository repo = new Repository();
-                int res = repo.Create(rating);
+                int res = repo.Create(EventId, RatingId);
                 return Ok(res);
             }
             catch (Exception ex)

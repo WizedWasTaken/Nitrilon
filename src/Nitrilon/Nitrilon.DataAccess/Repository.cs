@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Diagnostics;
+using Microsoft.Data.SqlClient;
 using Nitrilon.Entities;
 
 namespace Nitrilon.DataAccess
@@ -257,12 +258,12 @@ namespace Nitrilon.DataAccess
             return ratings;
         }
 
-        public int Create(EventRating rating)
+        public int Create(int id, int grade)
         {
             int newId = -1;
 
             string query = $"INSERT INTO EventRatings (EventId, RatingId) " +
-                           $"VALUES ({rating.EventId}, {rating.RatingId});" +
+                           $"VALUES ({id}, {grade});" +
                            $"SELECT SCOPE_IDENTITY();";
 
             SqlConnection connection = new SqlConnection(connectionString);
@@ -270,6 +271,7 @@ namespace Nitrilon.DataAccess
             SqlCommand command = new SqlCommand(query, connection);
 
             connection.Open();
+            Debug.WriteLine("");
 
             try
             {
@@ -277,6 +279,7 @@ namespace Nitrilon.DataAccess
                 while (SqlDataReader.Read())
                 {
                     newId = (int)SqlDataReader.GetDecimal(0);
+                    Debug.WriteLine(newId);
                 }
 
                 return newId;
