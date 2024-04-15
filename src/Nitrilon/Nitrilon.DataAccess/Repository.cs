@@ -94,8 +94,6 @@ namespace Nitrilon.DataAccess
                         Description = description
                     };
                 }
-
-                return newEvent;
             }
             catch (Exception ex)
             {
@@ -219,11 +217,11 @@ namespace Nitrilon.DataAccess
         }
 
         // !! RATING METHODS !!
-        public EventRating GetRatings(int id)
+        public List<EventRating> GetRatingsByEvent(int id)
         {
-            EventRating newEventRating = new EventRating();
+            List<EventRating> ratings = new List<EventRating>();
 
-            string query = $"SELECT * FROM EventRatings WHERE EventRatingId = {id}";
+            string query = $"SELECT * FROM EventRatings WHERE EventId = {id}";
 
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -236,17 +234,15 @@ namespace Nitrilon.DataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    int eventId = Convert.ToInt32(reader["EventId"]);
-                    int ratingId = Convert.ToInt32(reader["RatingId"]);
-
-                    newEventRating = new EventRating
+                    EventRating newEventRating = new EventRating
                     {
-                        EventId = eventId,
-                        RatingId = ratingId
+                        Id = Convert.ToInt32(reader["EventRatingId"]),
+                        EventId = Convert.ToInt32(reader["EventId"]),
+                        RatingId = Convert.ToInt32(reader["RatingId"]),
                     };
-                }
 
-                return newEventRating;
+                    ratings.Add(newEventRating);
+                }
             }
             catch (Exception ex)
             {
@@ -258,7 +254,41 @@ namespace Nitrilon.DataAccess
                 connection.Close();
             }
 
-            return newEventRating;
-        })
+            return ratings;
+        }
+
+        public int Create(EventRating rating)
+        {
+            int newId = -1;
+
+            string query = $"INSERT INTO EventRatings (EventId, RatingId) " +
+                           $"VALUES ({rating.EventId}, {rating.RatingId});" +
+                           $"SELECT SCOPE_IDENTITY();";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            connection.Open();
+
+            try
+            {
+                SqlDataReader SqlDataReader = command.ExecuteReader();
+                while (SqlDataReader.Read())
+                {
+                    newId = (int)SqlDataReader.GetDecimal(0);
+                }
+
+                return newId;
+            }
+            catch
+            {
+                return newId;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

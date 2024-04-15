@@ -15,7 +15,7 @@ namespace Nitrilon.Api.Controllers
             try
             {
                 Repository repo = new Repository();
-                var ratings = repo.GetRatings(eventId);
+                var ratings = repo.GetRatingsByEvent(eventId);
                 return Ok(ratings);
             }
             catch (Exception ex)
@@ -23,21 +23,20 @@ namespace Nitrilon.Api.Controllers
                 return StatusCode(500, ex);
             }
         }
-    }
 
-    //[HttpPost("{eventId}, {ratingId}", Name = "RateEvent")]
-    //public IActionResult RateEvent([FromBody] int eventId, [FromBody] int rating)
-    //{
-    //    try
-    //    {
-    //        Repository repo = new Repository();
-    //        repo.RateEvent(eventId, rating);
-    //        return Ok();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return StatusCode(500, ex);
-    //    }
-    //}
-}
+        [HttpPost(Name = "AddEventRating")]
+        public IActionResult AddEventRating(EventRating rating)
+        {
+            try
+            {
+                Repository repo = new Repository();
+                int res = repo.Create(rating);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+    }
 }
