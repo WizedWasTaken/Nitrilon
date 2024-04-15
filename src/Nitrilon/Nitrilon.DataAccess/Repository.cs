@@ -7,6 +7,8 @@ namespace Nitrilon.DataAccess
     {
         private readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NitrilonDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
+        // !! EVENT METHODS !!
+
         /// <summary>
         /// Method to get all events from the database.
         /// </summary>
@@ -215,5 +217,48 @@ namespace Nitrilon.DataAccess
                 connection.Close();
             }
         }
+
+        // !! RATING METHODS !!
+        public EventRating GetRatings(int id)
+        {
+            EventRating newEventRating = new EventRating();
+
+            string query = $"SELECT * FROM EventRatings WHERE EventRatingId = {id}";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int eventId = Convert.ToInt32(reader["EventId"]);
+                    int ratingId = Convert.ToInt32(reader["RatingId"]);
+
+                    newEventRating = new EventRating
+                    {
+                        EventId = eventId,
+                        RatingId = ratingId
+                    };
+                }
+
+                return newEventRating;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return newEventRating;
+        })
     }
 }
