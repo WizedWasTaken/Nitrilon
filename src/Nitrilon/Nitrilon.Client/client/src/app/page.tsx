@@ -61,6 +61,9 @@ export default function Home() {
       ))}
       {selectedEvent && !showModal && (
         <>
+          <h1 className="absolute top-5 w-full text-center text-4xl font-bold">
+            Hvad synes du om besøget?
+          </h1>
           <button
             className="w-[30%] h-[70%] relative"
             onClick={() => handleGradeClick(3)}
