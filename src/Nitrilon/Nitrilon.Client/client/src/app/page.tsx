@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 // Dependencies
-import { useEffect, useState, useCallback, useMemo } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useCallback, useMemo } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // Components
 import {
@@ -11,12 +11,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { toast } from 'sonner';
-import React from 'react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
+import React from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 // Types
 type Event = {
@@ -28,8 +27,8 @@ type Event = {
 };
 
 // Variables
-const API_EVENTS_URL = 'https://localhost:7097/api/Events';
-const API_EVENT_RATING_URL = 'https://localhost:7097/api/EventRating';
+const API_EVENTS_URL = "https://localhost:7097/api/Event";
+const API_EVENT_RATING_URL = "https://localhost:7097/api/EventRating";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -40,7 +39,7 @@ export default function Home() {
   const router = useRouter();
 
   const handleEventClick = useCallback((event: Event) => {
-    console.log('Event clicked', event);
+    console.log("Event clicked", event);
     setEvents([]);
     setSelectedEvent(event);
   }, []);
@@ -50,9 +49,9 @@ export default function Home() {
       await fetch(
         `${API_EVENT_RATING_URL}?EventId=${selectedEvent?.id}&RatingId=${grade}`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
@@ -69,13 +68,14 @@ export default function Home() {
     async function fetchEvents() {
       setProgress(41);
       const response = await fetch(API_EVENTS_URL);
+      console.log("Response", response);
       setProgress(80);
       if (!response.ok) {
         setProgress(100);
-        toast.error('Der skete en teknisk fejl. Prøv igen senere', {
+        toast.error("Der skete en teknisk fejl. Prøv igen senere", {
           description: `${new Date().toLocaleString()}`,
           action: {
-            label: 'Prøv igen',
+            label: "Prøv igen",
             onClick: () => fetchEvents(),
           },
         });
@@ -95,83 +95,78 @@ export default function Home() {
     if (selectedEvent) {
       return new Date(selectedEvent.date).toLocaleDateString();
     }
-    return '';
+    return "";
   }, [selectedEvent]);
 
   const isLoading =
     events.length === 0 && !selectedEvent && !showModal && progress < 100;
 
   return (
-    <main className='flex flex-wrap h-screen justify-around items-center gap-5 p-20'>
+    <main className="flex flex-wrap h-screen justify-around items-center gap-5 p-20">
       {progress == 100 &&
         events.map((event) => (
           <Card
             key={event.id}
             onClick={() => handleEventClick(event)}
-            className='w-full md:w-3/12 cursor-pointer'
+            className="w-full md:w-3/12 cursor-pointer"
           >
             <CardHeader>
               <CardTitle>{event.name}</CardTitle>
               <CardDescription>{formattedDate}</CardDescription>
               <CardDescription>{event.description}</CardDescription>
               <CardDescription>
-                {event.attendees === -1 ? 'Ingen' : event.attendees} deltagere
+                {event.attendees === -1 ? "Ingen" : event.attendees} deltagere
               </CardDescription>
             </CardHeader>
           </Card>
         ))}
       {selectedEvent && !showModal && (
         <>
-          <h1 className='absolute top-5 w-full text-center text-4xl font-bold'>
+          <h1 className="absolute top-5 w-full text-center text-4xl font-bold">
             Hvad synes du om besøget?
           </h1>
           <button
-            className='w-[30%] h-[70%] relative'
-            onClick={() => handleGradeClick(3)}
-          >
-            <Image
-              src='/images/emoji/happy.webp'
-              alt='Happy emoji'
-              layout='fill'
-              objectFit='contain'
-            />
-          </button>
-          <button
-            className='w-[30%] h-[70%] text-6xl relative'
-            onClick={() => handleGradeClick(2)}
-          >
-            <Image
-              src='/images/emoji/neutral.jpg'
-              alt='Neutral emoji'
-              layout='fill'
-              objectFit='contain'
-            />
-          </button>
-          <button
-            className='w-[30%] h-[70%] text-6xl relative'
+            className="w-[30%] h-[70%] relative"
             onClick={() => handleGradeClick(1)}
           >
             <Image
-              src='/images/emoji/sad.png'
-              alt='Sad emoji'
-              layout='fill'
-              objectFit='contain'
+              src="/images/emoji/happy.webp"
+              alt="Happy emoji"
+              layout="fill"
+              objectFit="contain"
+            />
+          </button>
+          <button
+            className="w-[30%] h-[70%] text-6xl relative"
+            onClick={() => handleGradeClick(2)}
+          >
+            <Image
+              src="/images/emoji/neutral.jpg"
+              alt="Neutral emoji"
+              layout="fill"
+              objectFit="contain"
+            />
+          </button>
+          <button
+            className="w-[30%] h-[70%] text-6xl relative"
+            onClick={() => handleGradeClick(3)}
+          >
+            <Image
+              src="/images/emoji/sad.png"
+              alt="Sad emoji"
+              layout="fill"
+              objectFit="contain"
             />
           </button>
         </>
       )}
       {showModal && (
         <section>
-          <h1 className='text-5xl'>Tak for din anmeldelse!</h1>
-          <p className='text-3xl text-center'>Vi ses snart igen :D</p>
+          <h1 className="text-5xl">Tak for din anmeldelse!</h1>
+          <p className="text-3xl text-center">Vi ses snart igen :D</p>
         </section>
       )}
-      {isLoading && (
-        <Progress
-          value={progress}
-          className='w-[60%]'
-        />
-      )}
+      {isLoading && <Progress value={progress} className="w-[60%]" />}
       {error && (
         <Alert>
           <AlertTitle>Der skete en teknisk fejl</AlertTitle>
