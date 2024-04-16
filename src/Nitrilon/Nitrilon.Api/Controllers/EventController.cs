@@ -59,6 +59,22 @@ namespace Nitrilon.Api.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetEventsAfterDate")]
+        public IActionResult GetEventsAfterDate(DateTime date)
+        {
+            try
+            {
+                Repository repo = new Repository();
+                var events = repo.GetEventsAfterDate(date);
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
         /// <summary>
         /// Action method to add a new event to the database.
         /// </summary>

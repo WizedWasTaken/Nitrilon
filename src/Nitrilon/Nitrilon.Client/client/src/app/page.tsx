@@ -27,7 +27,7 @@ type Event = {
 };
 
 // Variables
-const API_EVENTS_URL = "https://localhost:7097/api/Event";
+const API_EVENTS_URL = `https://localhost:7097/api/Event/GetEventsAfterDate?date=${new Date().toISOString()}`;
 const API_EVENT_RATING_URL = "https://localhost:7097/api/EventRating";
 
 export default function Home() {
@@ -112,7 +112,10 @@ export default function Home() {
           >
             <CardHeader>
               <CardTitle>{event.name}</CardTitle>
-              <CardDescription>{formattedDate}</CardDescription>
+              <CardDescription>
+                {new Date(event.date).toLocaleDateString()}
+                kl. {new Date(event.date).toLocaleTimeString()}
+              </CardDescription>
               <CardDescription>{event.description}</CardDescription>
               <CardDescription>
                 {event.attendees === -1 ? "Ingen" : event.attendees} deltagere

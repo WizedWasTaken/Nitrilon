@@ -258,6 +258,53 @@ namespace Nitrilon.DataAccess
             return ratings;
         }
 
+        public List<Event> GetEventsAfterDate(DateTime date)
+        {
+            List<Event> events = new List<Event>();
+
+            string query = $"SELECT * FROM Events WHERE Date >= '{date.ToString("yyyy-MM-dd")}'";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["EventId"]);
+                    DateTime newDate = Convert.ToDateTime(reader["Date"]);
+                    string name = reader["Name"].ToString();
+                    int attendees = Convert.ToInt32(reader["Attendees"]);
+                    string description = reader["Description"].ToString();
+
+                    Event newEvent = new Event
+                    {
+                        Id = id,
+                        Date = newDate,
+                        Name = name,
+                        Attendees = attendees,
+                        Description = description
+                    };
+                    events.Add(newEvent);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return events;
+        }
+
         public int Create(int id, int grade)
         {
             int newId = -1;
