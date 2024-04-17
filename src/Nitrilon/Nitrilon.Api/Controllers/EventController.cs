@@ -59,6 +59,11 @@ namespace Nitrilon.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Action method to get all events after a specific date.
+        /// </summary>
+        /// <param name="date">Date to search after</param>
+        /// <returns>Status 200 with found events</returns>
         [HttpGet]
         [Route("GetEventsAfterDate")]
         public IActionResult GetEventsAfterDate(DateTime date)

@@ -9,6 +9,11 @@ namespace Nitrilon.Api.Controllers
     public class EventRatingController : ControllerBase
     {
 
+        /// <summary>
+        /// Method to get all ratings for a specific event.
+        /// </summary>
+        /// <param name="eventId">EventId</param>
+        /// <returns>Status 200 with all the ratings</returns>
         [HttpGet("{eventId}", Name = "GetEventRatings")]
         public ActionResult<IEnumerable<EventRating>> GetEventRatings(int eventId)
         {
@@ -24,6 +29,12 @@ namespace Nitrilon.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Method to add a rating to an event.
+        /// </summary>
+        /// <param name="EventId">Id of the event</param>
+        /// <param name="RatingId">Rating to give</param>
+        /// <returns>Status 200 with id of the new event rating</returns>
         [HttpPost(Name = "AddEventRating")]
         public IActionResult AddEventRating([FromQuery] int EventId, [FromQuery] int RatingId)
         {

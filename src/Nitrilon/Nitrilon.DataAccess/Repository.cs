@@ -6,6 +6,7 @@ namespace Nitrilon.DataAccess
 {
     public class Repository
     {
+        // Connection string to the database.
         private readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NitrilonDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
         // !! EVENT METHODS !!
@@ -50,10 +51,9 @@ namespace Nitrilon.DataAccess
                     events.Add(newEvent);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new ArgumentException("An error occurred while getting the events.");
             }
             finally
             {
@@ -63,6 +63,11 @@ namespace Nitrilon.DataAccess
             return events;
         }
 
+        /// <summary>
+        /// The method to get a specific event from the database.
+        /// </summary>
+        /// <param name="id">EventId</param>
+        /// <returns>Event</returns>
         public Event GetEventById(int id)
         {
             Event newEvent = new Event();
@@ -96,10 +101,9 @@ namespace Nitrilon.DataAccess
                     };
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new ArgumentException("An error occurred while getting the event.");
             }
             finally
             {
@@ -132,7 +136,6 @@ namespace Nitrilon.DataAccess
             try
             {
                 SqlDataReader SqlDataReader = command.ExecuteReader();
-                // Get the new id of the event.
                 while (SqlDataReader.Read())
                 {
                     newId = (int)SqlDataReader.GetDecimal(0);
@@ -142,7 +145,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return -1;
+                throw new ArgumentException("An error occurred while saving the event.");
             }
             finally
             {
@@ -178,7 +181,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return null;
+                throw new ArgumentException("An error occurred while updating the event.");
             }
             finally
             {
@@ -209,7 +212,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return -1;
+                throw new ArgumentException("An error occurred while deleting the event.");
             }
             finally
             {
@@ -218,6 +221,12 @@ namespace Nitrilon.DataAccess
         }
 
         // !! RATING METHODS !!
+
+        /// <summary>
+        /// Method to get all ratings for an event.
+        /// </summary>
+        /// <param name="id">EventId</param>
+        /// <returns>List of event ratings</returns>
         public List<EventRating> GetRatingsByEvent(int id)
         {
             List<EventRating> ratings = new List<EventRating>();
@@ -245,10 +254,9 @@ namespace Nitrilon.DataAccess
                     ratings.Add(newEventRating);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new ArgumentException("An error occurred while getting the ratings.");
             }
             finally
             {
@@ -258,6 +266,11 @@ namespace Nitrilon.DataAccess
             return ratings;
         }
 
+        /// <summary>
+        /// Event to get all events after a certain date.
+        /// </summary>
+        /// <param name="date">Date to search after</param>
+        /// <returns>List of events after the date argument</returns>
         public List<Event> GetEventsAfterDate(DateTime date)
         {
             List<Event> events = new List<Event>();
@@ -292,10 +305,9 @@ namespace Nitrilon.DataAccess
                     events.Add(newEvent);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new ArgumentException("An error occurred while getting the events.");
             }
             finally
             {
@@ -305,6 +317,12 @@ namespace Nitrilon.DataAccess
             return events;
         }
 
+        /// <summary>
+        /// Function to create a new rating for an event.
+        /// </summary>
+        /// <param name="id">EventId</param>
+        /// <param name="grade">Grade to give the event</param>
+        /// <returns></returns>
         public int Create(int id, int grade)
         {
             int newId = -1;
@@ -333,7 +351,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return newId;
+                throw new ArgumentException("An error occurred while saving the rating.");
             }
             finally
             {

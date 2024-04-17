@@ -67,9 +67,12 @@ export default function Home() {
   useEffect(() => {
     async function fetchEvents() {
       setProgress(41);
-      const response = await fetch(API_EVENTS_URL);
-      console.log("Response", response);
-      setProgress(80);
+      const response = await fetch(API_EVENTS_URL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         setProgress(100);
         toast.error("Der skete en teknisk fejl. Prøv igen senere", {
@@ -82,6 +85,7 @@ export default function Home() {
         return setError(true);
       }
       const data = await response.json();
+      setProgress(80);
       setTimeout(() => {
         setProgress(100);
       }, 1000);
@@ -90,13 +94,6 @@ export default function Home() {
 
     fetchEvents();
   }, []);
-
-  const formattedDate = useMemo(() => {
-    if (selectedEvent) {
-      return new Date(selectedEvent.date).toLocaleDateString();
-    }
-    return "";
-  }, [selectedEvent]);
 
   const isLoading =
     events.length === 0 && !selectedEvent && !showModal && progress < 100;
