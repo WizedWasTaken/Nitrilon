@@ -99,12 +99,12 @@ export default function Home() {
 
   return (
     <main className="flex flex-wrap h-screen justify-around items-center gap-5 p-20">
+      <div className="absolute top-5 w-full flex justify-end px-5">
+        <ModeToggle />
+      </div>
       {progress == 100 &&
         events.map((event) => (
           <>
-            <div className="absolute top-5 w-full flex justify-end px-5">
-              <ModeToggle />
-            </div>
             <Card
               key={event.id}
               onClick={() => handleEventClick(event)}
@@ -113,10 +113,13 @@ export default function Home() {
               <CardHeader>
                 <CardTitle>{event.name}</CardTitle>
                 <CardDescription>
-                  {new Date(event.date).toLocaleDateString()}
+                  {new Date(event.date).toLocaleDateString("da-DK")}
                 </CardDescription>
                 <CardDescription>
-                  kl. {new Date(event.date).toLocaleTimeString()}
+                  kl.{" "}
+                  {new Date(event.date).toLocaleTimeString("da-DK", {
+                    timeStyle: "short",
+                  })}
                 </CardDescription>
                 <CardDescription>{event.description}</CardDescription>
                 <CardDescription>
@@ -128,6 +131,9 @@ export default function Home() {
         ))}
       {selectedEvent && !showModal && !isLoading && (
         <>
+          <h1 className="absolute text-black text-6xl text-bold dark:text-white top-10 w-full text-center">
+            Giv din holdning til {selectedEvent?.name}
+          </h1>
           <button
             className="w-[30%] h-[70%] relative"
             onClick={() => handleGradeClick(1)}

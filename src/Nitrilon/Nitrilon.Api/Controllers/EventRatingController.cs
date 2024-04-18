@@ -41,7 +41,7 @@ namespace Nitrilon.Api.Controllers
             try
             {
                 Repository repo = new Repository();
-                int res = repo.Create(EventId, RatingId);
+                int res = repo.CreateRating(EventId, RatingId);
                 return Ok(res);
             }
             catch (Exception ex)

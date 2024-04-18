@@ -39,8 +39,9 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
+                    List<Rating> ratings = new List<Rating>();
 
-                    Event newEvent = new Event(id, name, date, attendees, description);
+                    Event newEvent = new Event(id, name, date, attendees, description, ratings);
                     events.Add(newEvent);
                 }
             }
@@ -81,8 +82,9 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
+                    List<Rating> ratings = new List<Rating>();
 
-                    Event newEvent = new Event(eventId, name, date, attendees, description);
+                    Event newEvent = new Event(eventId, name, date, attendees, description, ratings);
                     return newEvent;
                 }
 
@@ -278,8 +280,9 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
+                    List<Rating> ratings = new List<Rating>();
 
-                    Event newEvent = new Event(id, name, newDate, attendees, description);
+                    Event newEvent = new Event(id, name, newDate, attendees, description, ratings);
                     events.Add(newEvent);
                 }
             }
@@ -301,7 +304,7 @@ namespace Nitrilon.DataAccess
         /// <param name="id">EventId</param>
         /// <param name="grade">Grade to give the event</param>
         /// <returns></returns>
-        public int Create(int id, int grade)
+        public int CreateRating(int id, int grade)
         {
             int newId = -1;
 

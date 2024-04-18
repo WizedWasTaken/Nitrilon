@@ -2,15 +2,16 @@
 {
     public class Event
     {
-        // Fields
+        #region Fields
         private int id;
         private string name;
         private DateTime date;
         private int attendees;
         private string description;
         private List<Rating> ratings;
+        #endregion
 
-        // Constructor
+        #region Constructors
         public Event(int id, string name, DateTime date, int attendees, string description, List<Rating> ratings)
         {
             Id = id;
@@ -19,10 +20,12 @@
             Attendees = attendees;
             Description = description;
             // If ratings is null, throw an exception.
-            this.ratings = ratings ?? throw new ArgumentException(nameof(ratings));
+            this.ratings = ratings ?? throw new ArgumentNullException(nameof(ratings));
         }
 
-        // Properties
+        #endregion
+
+        #region Properties
         public int Id
         {
             get => id;
@@ -70,5 +73,38 @@
             get => description;
             set => description = value;
         }
+
+        #endregion
+
+        #region Methods
+        public void Add(Rating rating)
+        {
+            // If rating is null, throw an exception.
+            if (rating == null)
+                throw new ArgumentNullException(nameof(rating));
+
+            ratings.Add(rating);
+        }
+
+        public double GetAverageRating()
+        {
+            // If ratings is null, throw an exception.
+            if (ratings == null)
+                throw new ArgumentNullException(nameof(ratings));
+
+            // If ratings is empty, return 0.
+            if (ratings.Count == 0)
+                return 0;
+
+            // Calculate the average rating.
+            double sum = 0;
+            foreach (Rating rating in ratings)
+            {
+                sum += rating.RatingValue;
+            }
+
+            return sum / ratings.Count;
+        }
+        #endregion
     }
 }
