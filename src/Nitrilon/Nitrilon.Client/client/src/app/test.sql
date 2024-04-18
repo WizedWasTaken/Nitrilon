@@ -1,0 +1,3 @@
+DELETE FROM EventRatings;
+DELETE FROM Ratings;
+DELETE FROM Events;

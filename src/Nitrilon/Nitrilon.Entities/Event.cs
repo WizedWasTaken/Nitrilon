@@ -2,60 +2,70 @@
 {
     public class Event
     {
+        // Fields
         private int id;
+        private string name;
+        private DateTime date;
+        private int attendees;
+        private string description;
 
+        // Constructor
+        public Event(int id, string name, DateTime date, int attendees, string description)
+        {
+            Id = id;
+            Name = name;
+            Date = date;
+            Attendees = attendees;
+            Description = description;
+        }
+
+        // Properties
         public int Id
         {
-            get { return id; }
+            get => id;
             set
             {
                 if (value < 0)
-                {
                     throw new ArgumentException("Id must be a positive number.");
-                }
+
                 id = value;
             }
         }
 
-        private string name;
-
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => name;
             set
             {
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException("Name cannot be empty.");
 
-                bool isNumeric = int.TryParse(value, out int n);
-                if (isNumeric)
-                    throw new ArgumentException("Name cannot be a number.");
-
                 name = value;
             }
         }
 
-        private DateTime date;
-
         public DateTime Date
         {
-            get
-            {
-                return date;
-            }
+            get => date;
+            set => date = value;
+        }
+
+        public int Attendees
+        {
+            get => attendees;
             set
             {
-                if (value < DateTime.Now)
-                    throw new ArgumentException("Date cannot be in the past.");
+                if (value < -1)
+                    throw new ArgumentException("Attendees must be a positive number.");
 
-
+                attendees = value;
             }
         }
 
-        public int Attendees { get; set; }
-        public string Description { get; set; }
+        public string Description
+        {
+            get => description;
+            set => description = value;
+        }
     }
 }

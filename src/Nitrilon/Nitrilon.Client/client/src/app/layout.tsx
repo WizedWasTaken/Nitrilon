@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,18 +18,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="min-h-screen">
-      <body className={`${inter.className} dark h-screen`}>
-        <main>{children}</main>
-        <Toaster
-          toastOptions={{
-            classNames: {
-              error: "bg-red-500 text-white",
-              success: "bg-green-500 text-white",
-              info: "bg-blue-500 text-white",
-              warning: "bg-yellow-500 text-white",
-            },
-          }}
-        />
+      <body className={`${inter.className} h-screen`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main>{children}</main>
+          <Toaster
+            toastOptions={{
+              classNames: {
+                error: "bg-red-500 text-white",
+                success: "bg-green-500 text-white",
+                info: "bg-blue-500 text-white",
+                warning: "bg-yellow-500 text-white",
+              },
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

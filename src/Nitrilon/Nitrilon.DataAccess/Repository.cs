@@ -40,14 +40,7 @@ namespace Nitrilon.DataAccess
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
 
-                    Event newEvent = new Event
-                    {
-                        Id = id,
-                        Date = date,
-                        Name = name,
-                        Attendees = attendees,
-                        Description = description
-                    };
+                    Event newEvent = new Event(id, name, date, attendees, description);
                     events.Add(newEvent);
                 }
             }
@@ -70,8 +63,6 @@ namespace Nitrilon.DataAccess
         /// <returns>Event</returns>
         public Event GetEventById(int id)
         {
-            Event newEvent = new Event();
-
             string query = $"SELECT * FROM Events WHERE EventId = {id}";
 
             SqlConnection connection = new SqlConnection(connectionString);
@@ -91,15 +82,11 @@ namespace Nitrilon.DataAccess
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
 
-                    newEvent = new Event
-                    {
-                        Id = eventId,
-                        Date = date,
-                        Name = name,
-                        Attendees = attendees,
-                        Description = description
-                    };
+                    Event newEvent = new Event(eventId, name, date, attendees, description);
+                    return newEvent;
                 }
+
+                throw new ArgumentException("Event not found.");
             }
             catch
             {
@@ -109,8 +96,6 @@ namespace Nitrilon.DataAccess
             {
                 connection.Close();
             }
-
-            return newEvent;
         }
 
         /// <summary>
@@ -294,14 +279,7 @@ namespace Nitrilon.DataAccess
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
 
-                    Event newEvent = new Event
-                    {
-                        Id = id,
-                        Date = newDate,
-                        Name = name,
-                        Attendees = attendees,
-                        Description = description
-                    };
+                    Event newEvent = new Event(id, name, newDate, attendees, description);
                     events.Add(newEvent);
                 }
             }

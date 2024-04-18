@@ -23,6 +23,7 @@ namespace Nitrilon.Api.Controllers
             {
                 Repository repo = new Repository();
                 var events = repo.GetAllEvents();
+
                 return Ok(events);
             }
             catch (Exception ex)
@@ -51,6 +52,7 @@ namespace Nitrilon.Api.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(result);
             }
             catch (Exception ex)

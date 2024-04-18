@@ -3,7 +3,6 @@
 // Dependencies
 import { useEffect, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 // Components
 import {
@@ -16,6 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 import React from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ModeToggle } from "@/components/ui/dark-mode-toggle";
 
 // Types
 type Event = {
@@ -36,7 +36,6 @@ export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(false);
-  const router = useRouter();
 
   const handleEventClick = useCallback((event: Event) => {
     console.log("Event clicked", event);
@@ -102,28 +101,35 @@ export default function Home() {
     <main className="flex flex-wrap h-screen justify-around items-center gap-5 p-20">
       {progress == 100 &&
         events.map((event) => (
-          <Card
-            key={event.id}
-            onClick={() => handleEventClick(event)}
-            className="w-full md:w-3/12 cursor-pointer"
-          >
-            <CardHeader>
-              <CardTitle>{event.name}</CardTitle>
-              <CardDescription>
-                {new Date(event.date).toLocaleDateString()}
-                kl. {new Date(event.date).toLocaleTimeString()}
-              </CardDescription>
-              <CardDescription>{event.description}</CardDescription>
-              <CardDescription>
-                {event.attendees === -1 ? "Ingen" : event.attendees} deltagere
-              </CardDescription>
-            </CardHeader>
-          </Card>
+          <>
+            <div className="absolute top-5 w-full flex justify-end px-5">
+              <ModeToggle />
+            </div>
+            <Card
+              key={event.id}
+              onClick={() => handleEventClick(event)}
+              className="w-full md:w-3/12 cursor-pointer"
+            >
+              <CardHeader>
+                <CardTitle>{event.name}</CardTitle>
+                <CardDescription>
+                  {new Date(event.date).toLocaleDateString()}
+                </CardDescription>
+                <CardDescription>
+                  kl. {new Date(event.date).toLocaleTimeString()}
+                </CardDescription>
+                <CardDescription>{event.description}</CardDescription>
+                <CardDescription>
+                  {event.attendees === -1 ? "Ingen" : event.attendees} deltagere
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </>
         ))}
       {selectedEvent && !showModal && (
         <>
           <h1 className="absolute top-5 w-full text-center text-4xl font-bold">
-            Hvad synes du om besøget?
+            Hvad synes du om besøget til {selectedEvent.name}
           </h1>
           <button
             className="w-[30%] h-[70%] relative"
@@ -141,8 +147,8 @@ export default function Home() {
             onClick={() => handleGradeClick(2)}
           >
             <Image
-              src="/images/emoji/neutral.jpg"
-              alt="Neutral emoji"
+              src="/images/emoji/neutral-removebg-preview.png"
+              alt="Emo emoji"
               layout="fill"
               objectFit="contain"
             />
