@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-h-screen">
+    <html lang="en" className="min-h-screen dark">
       <body className={`${inter.className} h-screen`}>
         <ThemeProvider
           attribute="class"

@@ -84,7 +84,7 @@ export default function Home() {
         return setError(true);
       }
       const data = await response.json();
-      setProgress(80);
+      setProgress(90);
       setTimeout(() => {
         setProgress(100);
       }, 1000);
@@ -95,7 +95,7 @@ export default function Home() {
   }, []);
 
   const isLoading =
-    events.length === 0 && !selectedEvent && !showModal && progress < 100;
+    (events.length === 0 && !selectedEvent && !showModal) || progress < 100;
 
   return (
     <main className="flex flex-wrap h-screen justify-around items-center gap-5 p-20">
@@ -126,11 +126,8 @@ export default function Home() {
             </Card>
           </>
         ))}
-      {selectedEvent && !showModal && (
+      {selectedEvent && !showModal && !isLoading && (
         <>
-          <h1 className="absolute top-5 w-full text-center text-4xl font-bold">
-            Hvad synes du om besøget til {selectedEvent.name}
-          </h1>
           <button
             className="w-[30%] h-[70%] relative"
             onClick={() => handleGradeClick(1)}
@@ -171,6 +168,14 @@ export default function Home() {
           <h1 className="text-5xl">Tak for din anmeldelse!</h1>
           <p className="text-3xl text-center">Vi ses snart igen :D</p>
         </section>
+      )}
+      {!isLoading && events.length === 0 && error && (
+        <Alert>
+          <AlertTitle>Ingen events</AlertTitle>
+          <AlertDescription>
+            Der er ingen events at vise. Prøv igen senere
+          </AlertDescription>
+        </Alert>
       )}
       {isLoading && <Progress value={progress} className="w-[60%]" />}
       {error && (
