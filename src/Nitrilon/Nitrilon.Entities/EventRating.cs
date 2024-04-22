@@ -2,8 +2,44 @@
 {
     public class EventRating
     {
-        public int Id { get; set; } // Temporary, remove when database is implemented (use auto increment)
-        public int EventId { get; set; }
-        public int RatingId { get; set; }
+        private int id;
+        private int eventId;
+        private int ratingId;
+
+        public int Id
+        {
+            get => id;
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Id must be a positive number.");
+
+                id = value;
+            }
+        }
+
+        public int EventId
+        {
+            get => eventId;
+            set
+            {
+                if (eventId <= 0)
+                    throw new ArgumentException("EventId must be above 0");
+
+                eventId = value;
+            }
+        }
+
+        public int RatingId
+        {
+            get => ratingId;
+            set
+            {
+                if (ratingId <= 0)
+                    throw new ArgumentException("RatingId must be above 0");
+
+                ratingId = value;
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace Nitrilon.Api.Controllers
             {
                 Repository repo = new Repository();
                 var events = repo.GetAllEvents();
+
                 return Ok(events);
             }
             catch (Exception ex)
@@ -51,7 +52,29 @@ namespace Nitrilon.Api.Controllers
                 {
                     return NotFound();
                 }
+
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        /// <summary>
+        /// Action method to get all events after a specific date.
+        /// </summary>
+        /// <param name="date">Date to search after</param>
+        /// <returns>Status 200 with found events</returns>
+        [HttpGet]
+        [Route("GetEventsAfterDate")]
+        public IActionResult GetEventsAfterDate(DateTime date)
+        {
+            try
+            {
+                Repository repo = new Repository();
+                var events = repo.GetEventsAfterDate(date);
+                return Ok(events);
             }
             catch (Exception ex)
             {

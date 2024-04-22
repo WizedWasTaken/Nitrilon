@@ -6,6 +6,7 @@ namespace Nitrilon.DataAccess
 {
     public class Repository
     {
+        // Connection string to the database.
         private readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NitrilonDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
         // !! EVENT METHODS !!
@@ -38,22 +39,15 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
+                    List<Rating> ratings = new List<Rating>();
 
-                    Event newEvent = new Event
-                    {
-                        Id = id,
-                        Date = date,
-                        Name = name,
-                        Attendees = attendees,
-                        Description = description
-                    };
+                    Event newEvent = new Event(id, name, date, attendees, description, ratings);
                     events.Add(newEvent);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new ArgumentException("An error occurred while getting the events.");
             }
             finally
             {
@@ -63,10 +57,13 @@ namespace Nitrilon.DataAccess
             return events;
         }
 
+        /// <summary>
+        /// The method to get a specific event from the database.
+        /// </summary>
+        /// <param name="id">EventId</param>
+        /// <returns>Event</returns>
         public Event GetEventById(int id)
         {
-            Event newEvent = new Event();
-
             string query = $"SELECT * FROM Events WHERE EventId = {id}";
 
             SqlConnection connection = new SqlConnection(connectionString);
@@ -85,28 +82,22 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
+                    List<Rating> ratings = new List<Rating>();
 
-                    newEvent = new Event
-                    {
-                        Id = eventId,
-                        Date = date,
-                        Name = name,
-                        Attendees = attendees,
-                        Description = description
-                    };
+                    Event newEvent = new Event(eventId, name, date, attendees, description, ratings);
+                    return newEvent;
                 }
+
+                throw new ArgumentException("Event not found.");
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new ArgumentException("An error occurred while getting the event.");
             }
             finally
             {
                 connection.Close();
             }
-
-            return newEvent;
         }
 
         /// <summary>
@@ -132,7 +123,6 @@ namespace Nitrilon.DataAccess
             try
             {
                 SqlDataReader SqlDataReader = command.ExecuteReader();
-                // Get the new id of the event.
                 while (SqlDataReader.Read())
                 {
                     newId = (int)SqlDataReader.GetDecimal(0);
@@ -142,7 +132,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return -1;
+                throw new ArgumentException("An error occurred while saving the event.");
             }
             finally
             {
@@ -178,7 +168,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return null;
+                throw new ArgumentException("An error occurred while updating the event.");
             }
             finally
             {
@@ -209,7 +199,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return -1;
+                throw new ArgumentException("An error occurred while deleting the event.");
             }
             finally
             {
@@ -218,6 +208,12 @@ namespace Nitrilon.DataAccess
         }
 
         // !! RATING METHODS !!
+
+        /// <summary>
+        /// Method to get all ratings for an event.
+        /// </summary>
+        /// <param name="id">EventId</param>
+        /// <returns>List of event ratings</returns>
         public List<EventRating> GetRatingsByEvent(int id)
         {
             List<EventRating> ratings = new List<EventRating>();
@@ -245,10 +241,9 @@ namespace Nitrilon.DataAccess
                     ratings.Add(newEventRating);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new ArgumentException("An error occurred while getting the ratings.");
             }
             finally
             {
@@ -258,7 +253,58 @@ namespace Nitrilon.DataAccess
             return ratings;
         }
 
-        public int Create(int id, int grade)
+        /// <summary>
+        /// Event to get all events after a certain date.
+        /// </summary>
+        /// <param name="date">Date to search after</param>
+        /// <returns>List of events after the date argument</returns>
+        public List<Event> GetEventsAfterDate(DateTime date)
+        {
+            List<Event> events = new List<Event>();
+
+            string query = $"SELECT * FROM Events WHERE Date >= '{date.ToString("yyyy-MM-dd")}'";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["EventId"]);
+                    DateTime newDate = Convert.ToDateTime(reader["Date"]);
+                    string name = reader["Name"].ToString();
+                    int attendees = Convert.ToInt32(reader["Attendees"]);
+                    string description = reader["Description"].ToString();
+                    List<Rating> ratings = new List<Rating>();
+
+                    Event newEvent = new Event(id, name, newDate, attendees, description, ratings);
+                    events.Add(newEvent);
+                }
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while getting the events.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return events;
+        }
+
+        /// <summary>
+        /// Function to create a new rating for an event.
+        /// </summary>
+        /// <param name="id">EventId</param>
+        /// <param name="grade">Grade to give the event</param>
+        /// <returns></returns>
+        public int CreateRating(int id, int grade)
         {
             int newId = -1;
 
@@ -286,7 +332,7 @@ namespace Nitrilon.DataAccess
             }
             catch
             {
-                return newId;
+                throw new ArgumentException("An error occurred while saving the rating.");
             }
             finally
             {
