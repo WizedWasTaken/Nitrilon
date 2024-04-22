@@ -24,6 +24,7 @@ namespace Nitrilon.Api
                     {
                         builder.WithOrigins("http://localhost:3000")
                             .AllowAnyHeader()
+                            .AllowAnyOrigin()
                             .AllowAnyMethod();
                     });
             });

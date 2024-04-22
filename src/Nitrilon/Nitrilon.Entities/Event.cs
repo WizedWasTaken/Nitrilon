@@ -1,4 +1,6 @@
-﻿namespace Nitrilon.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Nitrilon.Entities
 {
     public class Event
     {
@@ -21,6 +23,13 @@
             Description = description;
             // If ratings is null, throw an exception.
             this.ratings = ratings ?? throw new ArgumentNullException(nameof(ratings));
+        }
+
+        // This works for some reason 😭
+        // JsonConstructor is used to tell the deserializer which constructor to use when deserializing the object.
+        [JsonConstructor]
+        public Event()
+        {
         }
 
         #endregion
