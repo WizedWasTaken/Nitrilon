@@ -18,13 +18,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ModeToggle } from "@/components/ui/dark-mode-toggle";
 
 // Types
-type Event = {
-  id: string;
-  name: string;
-  date: string;
-  description: string;
-  attendees: number;
-};
+import { Event } from "@/lib/types";
 
 // Variables
 const API_EVENTS_URL = `https://localhost:7097/api/Event/GetEventsAfterDate?date=${new Date().toISOString()}`;
