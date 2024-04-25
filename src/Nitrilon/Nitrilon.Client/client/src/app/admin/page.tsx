@@ -33,9 +33,7 @@ ChartJS.register(
 );
 // Variables
 // Variables
-const API_EVENTS_URL = `${
-  process.env.NEXT_PUBLIC_API_URL
-}/api/Event/GetEventsAfterDate?date=${new Date().toISOString()}`;
+const API_EVENTS_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/Event`;
 const API_EVENT_RATING_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/EventRating`;
 
 export default function AdminPage() {
