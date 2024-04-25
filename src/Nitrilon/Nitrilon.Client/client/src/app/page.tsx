@@ -138,7 +138,7 @@ export default function Home() {
           </h1>
           <button
             className="w-[30%] h-[70%] relative"
-            onClick={() => handleGradeClick(1)}
+            onClick={() => handleGradeClick(3)}
           >
             <Image
               src="/images/emoji/happy.webp"
@@ -160,7 +160,7 @@ export default function Home() {
           </button>
           <button
             className="w-[30%] h-[70%] text-6xl relative"
-            onClick={() => handleGradeClick(3)}
+            onClick={() => handleGradeClick(1)}
           >
             <Image
               src="/images/emoji/sad.png"
