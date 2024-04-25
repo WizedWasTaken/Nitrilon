@@ -3,7 +3,7 @@ name: Deploy .NET Core API to Azure Web App
 on:
   push:
     branches:
-      - main  # Or your default branch
+      - master  # Or your default branch
     paths:
       - 'src/Nitrilon/Nitrilon.Api/**'  # Adjust this path to where your API project lives
 
