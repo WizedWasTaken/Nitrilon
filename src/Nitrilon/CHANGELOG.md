@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="1.0.2"></a>
+## [1.0.2](https://www.github.com/WizedWasTaken/Nitrilon/releases/tag/v1.0.2) (2024-04-25)
+
+### Other
+
+* Add CORS support for any origin in Nitrilon.Api/Program.cs ([c77d367](https://www.github.com/WizedWasTaken/Nitrilon/commit/c77d3671b470ee272c8abaf7730b7e16ad4f1dab))
+* added data access library ([78632fe](https://www.github.com/WizedWasTaken/Nitrilon/commit/78632fef594fef94ffd0dedfa5788632fa33f701))
+* Added rating entity ([3fab36e](https://www.github.com/WizedWasTaken/Nitrilon/commit/3fab36ed4bfbc85ec5714ca55a684335cc8ddb7e))
+* Added ratings to event entity ([90ab514](https://www.github.com/WizedWasTaken/Nitrilon/commit/90ab5148357d4670a507f17ccabd3cf6a770a343))
+* added website ([13b2ca2](https://www.github.com/WizedWasTaken/Nitrilon/commit/13b2ca24aa746040c7c9f440728d13b358872182))
+* another sudden commit with too many changes ([47aea93](https://www.github.com/WizedWasTaken/Nitrilon/commit/47aea936b38d104b4ae78e95a0fa32a2f52365b5))
+* asd ([bc44b1f](https://www.github.com/WizedWasTaken/Nitrilon/commit/bc44b1f1761f966849c388a5330f89bd24fa862e))
+* changed namespace for entities ([38f0824](https://www.github.com/WizedWasTaken/Nitrilon/commit/38f082442163fe656b31d4b3c0c9d881c647f972))
+* changed some stuff ([f496217](https://www.github.com/WizedWasTaken/Nitrilon/commit/f496217052d59b35103f9bb8243b8b556fcd58ae))
+* changed some stuff ([1460c47](https://www.github.com/WizedWasTaken/Nitrilon/commit/1460c474c43476d5418ea201e96bb3e946d9cf28))
+* changed web ([1fbc41c](https://www.github.com/WizedWasTaken/Nitrilon/commit/1fbc41cba2422f6e3c7f6a9b6382a7730def7306))
+* created a project reference from API to entities ([88f1421](https://www.github.com/WizedWasTaken/Nitrilon/commit/88f1421226c300041d2b068d88891a763a0c0bdd))
+* created entities project ([8cac4c7](https://www.github.com/WizedWasTaken/Nitrilon/commit/8cac4c717668e50c88dea5719aabb604fc90e1df))
+* created GetAllEvents() method and new fixed Get Event endpoint ([1a81337](https://www.github.com/WizedWasTaken/Nitrilon/commit/1a8133760973796b3da3493077444beaa96a32a2))
+* created new deployment workflow file ([e4c962e](https://www.github.com/WizedWasTaken/Nitrilon/commit/e4c962e629dc2b86380619f7ae92f657e25ff71e))
+* Fix typos and improve readability in systembeskrivelse.md and kravspec.md ([f6b95bf](https://www.github.com/WizedWasTaken/Nitrilon/commit/f6b95bfd4a0d8e0e04898788e68b1e57c566a103))
+* fixed merge issue ([9e83acc](https://www.github.com/WizedWasTaken/Nitrilon/commit/9e83acc983d40875c46ba1bea598e07e6528a76a))
+* fixed some shit ([58d96a1](https://www.github.com/WizedWasTaken/Nitrilon/commit/58d96a1c8f080f946b81c4ff9e386fd59acfdda1))
+* fixed stuff ([8ee55bb](https://www.github.com/WizedWasTaken/Nitrilon/commit/8ee55bbbc6a361296bccf414d5cea98fb3f54df6))
+* fixed the deploy.yml ([28a4023](https://www.github.com/WizedWasTaken/Nitrilon/commit/28a40230dc0d97b91bb0e0638ae7cb3098ca17d1))
+* forgot to commit lel ([70abaa2](https://www.github.com/WizedWasTaken/Nitrilon/commit/70abaa2c115856f53b521a5e63d6df0f6ad4a8e9))
+* heading tag added LOLLL ([431f1e7](https://www.github.com/WizedWasTaken/Nitrilon/commit/431f1e7a2826323cdd79f60eb47e7ffbc5823903))
+* made save events & getAllEvents method ([16dba11](https://www.github.com/WizedWasTaken/Nitrilon/commit/16dba11b3dcd8e4f86b1ae3a67fec68c67e8d7b4))
+* made stuff nullable ([e82c3fe](https://www.github.com/WizedWasTaken/Nitrilon/commit/e82c3fea44a642ecdeed3f45796d0e588e3df81a))
+* Merge branch 'master' of https://github.com/WizedWasTaken/Nitrilon ([bfb934a](https://www.github.com/WizedWasTaken/Nitrilon/commit/bfb934a1fcf69cd4bdf5057fa7855698421a00f4))
+* Merge branch 'master' of https://github.com/WizedWasTaken/Nitrilon ([b9c8ab0](https://www.github.com/WizedWasTaken/Nitrilon/commit/b9c8ab03f416c99a2556518c336b25d8849b8a39))
+* modified class event ([3575609](https://www.github.com/WizedWasTaken/Nitrilon/commit/3575609dc2010d739e8f37a129adc468a4fa78cf))
+* modified data access library ([64fa801](https://www.github.com/WizedWasTaken/Nitrilon/commit/64fa801755b07af81ceb70c1224074e463c297e1))
+* removed a comment from program.cs ([6bc8d8d](https://www.github.com/WizedWasTaken/Nitrilon/commit/6bc8d8d3c8f9ac03836c5a44689af29a1467ea71))
+* repository class diagram ([587d8f9](https://www.github.com/WizedWasTaken/Nitrilon/commit/587d8f962703ad6098a99181a05506efe8bab1e0))
+* Set up CI with Azure Pipelines ([feabaa5](https://www.github.com/WizedWasTaken/Nitrilon/commit/feabaa5922fc5f369f82b319fe98b59942af020c))
+* test ([729da0f](https://www.github.com/WizedWasTaken/Nitrilon/commit/729da0f84734cb2bf28a6abd77a31fa71f0cd162))
+* test ([a1e63ed](https://www.github.com/WizedWasTaken/Nitrilon/commit/a1e63ed80d5eb09a30de8ea5b8b9801483229ed6))
+* updated version ([f74de9c](https://www.github.com/WizedWasTaken/Nitrilon/commit/f74de9ca2326499c63bd24852c337c47a2cea258))
+* Uploaded DB ([556397c](https://www.github.com/WizedWasTaken/Nitrilon/commit/556397cdf16df3264498f961717f88ede4e2233d))
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://www.github.com/WizedWasTaken/Nitrilon/releases/tag/v1.0.1) (2024-04-10)
 
