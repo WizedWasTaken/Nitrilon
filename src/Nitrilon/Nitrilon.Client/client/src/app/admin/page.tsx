@@ -46,6 +46,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     async function fetchEvents() {
+      console.log("Fetching events");
       const response = await fetch(API_EVENTS_URL, {
         method: "GET",
         headers: {
@@ -53,10 +54,12 @@ export default function AdminPage() {
         },
       });
       if (!response.ok) {
+        console.log(response.status, response.statusText);
         alert("Failed to fetch events");
         return;
       }
 
+      console.log(response);
       const data = await response.json();
       setEvents(data);
     }
@@ -79,11 +82,17 @@ export default function AdminPage() {
 
       const ratings = await response.json();
 
-      // Count ratings
-      const ratingCount = { 1: 0, 2: 0, 3: 0 };
-      ratings.forEach((rating: { ratingId: 1 | 2 | 3 }) => {
-        ratingCount[rating.ratingId]++;
-      });
+      // Get the number of each rating from response.
+      // It will be returned as:
+      // badRatingCount: 6,
+      // goodRatingCount: 5,
+      // neutralRatingCount: 6
+      // Directly use the properties from the ratings object
+      const ratingCount = {
+        1: ratings.goodRatingCount,
+        2: ratings.neutralRatingCount,
+        3: ratings.badRatingCount,
+      };
 
       // Update the chart data
       setChartData({
