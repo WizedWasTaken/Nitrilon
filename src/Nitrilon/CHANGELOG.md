@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="1.0.3"></a>
+## [1.0.3](https://www.github.com/WizedWasTaken/Nitrilon/releases/tag/v1.0.3) (2024-04-25)
+
+### Other
+
+* Merge branch 'master' of https://github.com/WizedWasTaken/Nitrilon ([032edae](https://www.github.com/WizedWasTaken/Nitrilon/commit/032edaeb5fee45edfa1e342292a741347255ddea))
+* updated deploy.yml ([0bc850b](https://www.github.com/WizedWasTaken/Nitrilon/commit/0bc850b4a2ee3e76c88525100de0f75e8503ec6f))
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://www.github.com/WizedWasTaken/Nitrilon/releases/tag/v1.0.2) (2024-04-25)
 
