@@ -19,6 +19,7 @@ import {
   ArcElement,
   BarElement,
 } from "chart.js";
+import { LineChart } from "lucide-react";
 
 // Register the necessary components for a line chart
 ChartJS.register(
@@ -134,7 +135,7 @@ export default function AdminPage() {
 
   return (
     <div className="flex p-5 min-h-screen">
-      <aside className="w-1/4 h-full overflow-y-scroll">
+      <aside className="w-1/4 flex flex-col flex-grow overflow-y-scroll">
         {events.map((event) => (
           <div
             key={event.id}
@@ -161,38 +162,34 @@ export default function AdminPage() {
         ))}
       </aside>
       {/* Charts container */}
-      <section className="w-full h-full p-5 gap-5">
+      <section className="w-full flex flex-col min-h-full gap-5">
         <h1 className="text-5xl font-bold text-center w-full">
-          {selectedEvent?.name}
+          {selectedEvent?.name || "Vælg et event"}
         </h1>
-        {selectedEvent && (
-          <div className="flex h-full gap-5 py-5">
-            <div className="w-1/2 bg-gray-800 rounded-md">
-              <Doughnut
-                data={{
-                  datasets: [],
-                  ...chartData,
-                }}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                }}
-              />
-            </div>
-            <div className="w-1/2 bg-gray-800 rounded-md">
-              <Line
-                data={{
-                  datasets: [],
-                  ...chartData,
-                }}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                }}
-              />
-            </div>
+        <div className="flex-grow flex flex-col gap-3 p-5">
+          <div className="flex-grow bg-gray-800 rounded-md p-3">
+            <Doughnut
+              data={{
+                datasets: [],
+                ...chartData,
+              }}
+              options={{
+                maintainAspectRatio: false,
+              }}
+            />
           </div>
-        )}
+          <div className="flex-grow bg-gray-800 rounded-md p-3">
+            <Line
+              data={{
+                datasets: [],
+                ...chartData,
+              }}
+              options={{
+                maintainAspectRatio: false,
+              }}
+            />
+          </div>
+        </div>
       </section>
     </div>
   );
