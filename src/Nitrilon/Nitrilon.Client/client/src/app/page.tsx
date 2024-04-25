@@ -1,7 +1,7 @@
 "use client";
 
 // Dependencies
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 
 // Components
