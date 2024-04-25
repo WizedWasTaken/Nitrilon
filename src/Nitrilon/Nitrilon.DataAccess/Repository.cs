@@ -6,8 +6,19 @@ namespace Nitrilon.DataAccess
 {
     public class Repository
     {
-        // Connection string to the database.
-        private readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NitrilonDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        private readonly string connectionString;
+
+        public Repository()
+        {
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NitrilonDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+            }
+            else
+            {
+                connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+            }
+        }
 
         // !! EVENT METHODS !!
 
