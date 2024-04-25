@@ -1,7 +1,7 @@
 "use client";
 
 // Dependencies
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 
 // Components
@@ -21,8 +21,10 @@ import { ModeToggle } from "@/components/ui/dark-mode-toggle";
 import { Event } from "@/lib/types";
 
 // Variables
-const API_EVENTS_URL = `https://localhost:7097/api/Event/GetEventsAfterDate?date=${new Date().toISOString()}`;
-const API_EVENT_RATING_URL = "https://localhost:7097/api/EventRating";
+const API_EVENTS_URL = `${
+  process.env.NEXT_PUBLIC_API_URL
+}/api/Event/GetEventsAfterDate?date=${new Date().toISOString()}`;
+const API_EVENT_RATING_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/EventRating`;
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -133,7 +135,7 @@ export default function Home() {
           </h1>
           <button
             className="w-[30%] h-[70%] relative"
-            onClick={() => handleGradeClick(1)}
+            onClick={() => handleGradeClick(3)}
           >
             <Image
               src="/images/emoji/happy.webp"
@@ -155,7 +157,7 @@ export default function Home() {
           </button>
           <button
             className="w-[30%] h-[70%] text-6xl relative"
-            onClick={() => handleGradeClick(3)}
+            onClick={() => handleGradeClick(1)}
           >
             <Image
               src="/images/emoji/sad.png"
