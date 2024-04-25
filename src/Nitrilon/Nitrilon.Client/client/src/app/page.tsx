@@ -94,43 +94,41 @@ export default function Home() {
     (events.length === 0 && !selectedEvent && !showModal) || progress < 100;
 
   return (
-    <main className="flex flex-wrap min-h-screen justify-around items-center gap-5 p-20">
+    <main className="flex flex-wrap h-screen min-h-screen justify-around items-center gap-5 p-20">
       <div className="absolute top-5 w-full flex justify-end px-5">
         <ModeToggle />
       </div>
       {progress == 100 &&
         events.map((event) => (
-          <>
-            <Card
-              key={event.id}
-              onClick={() => handleEventClick(event)}
-              className="w-full md:w-3/12 cursor-pointer"
-            >
-              <CardHeader>
-                <CardTitle>{event.name}</CardTitle>
-                <CardDescription>
-                  {new Date(event.date).toLocaleDateString("da-DK")}
-                </CardDescription>
-                <CardDescription>
-                  kl.{" "}
-                  {new Date(event.date).toLocaleTimeString("da-DK", {
-                    timeStyle: "short",
-                  })}
-                </CardDescription>
-                <CardDescription>{event.description}</CardDescription>
-                <CardDescription>
-                  {event.attendees === -1 || event.attendees === 0
-                    ? "Ingen"
-                    : event.attendees}{" "}
-                  deltagere
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </>
+          <Card
+            key={event.id}
+            onClick={() => handleEventClick(event)}
+            className="w-full md:w-3/12 cursor-pointer"
+          >
+            <CardHeader>
+              <CardTitle>{event.name}</CardTitle>
+              <CardDescription>
+                {new Date(event.date).toLocaleDateString("da-DK")}
+              </CardDescription>
+              <CardDescription>
+                kl.{" "}
+                {new Date(event.date).toLocaleTimeString("da-DK", {
+                  timeStyle: "short",
+                })}
+              </CardDescription>
+              <CardDescription>{event.description}</CardDescription>
+              <CardDescription>
+                {event.attendees === -1 || event.attendees === 0
+                  ? "Ingen"
+                  : event.attendees}{" "}
+                deltagere
+              </CardDescription>
+            </CardHeader>
+          </Card>
         ))}
       {selectedEvent && !showModal && !isLoading && (
         <>
-          <h1 className="absolute text-black text-6xl text-bold dark:text-white top-10 w-full text-center">
+          <h1 className="absolute text-black text-6xl mtext-bold dark:text-white top-10 w-full text-center">
             Giv din holdning til {selectedEvent?.name}
           </h1>
           <button

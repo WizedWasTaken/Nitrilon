@@ -33,8 +33,11 @@ ChartJS.register(
   Legend
 );
 // Variables
-const API_EVENTS_URL = `https://localhost:7097/api/Event`;
-const API_EVENT_RATING_URL = "https://localhost:7097/api/EventRating";
+// Variables
+const API_EVENTS_URL = `${
+  process.env.NEXT_PUBLIC_API_URL
+}/api/Event/GetEventsAfterDate?date=${new Date().toISOString()}`;
+const API_EVENT_RATING_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/EventRating`;
 
 export default function AdminPage() {
   const [events, setEvents] = useState<Event[]>([]);
