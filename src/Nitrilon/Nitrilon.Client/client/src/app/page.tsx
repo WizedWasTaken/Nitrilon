@@ -92,7 +92,7 @@ export default function Home() {
     (events.length === 0 && !selectedEvent && !showModal) || progress < 100;
 
   return (
-    <main className="flex flex-wrap h-screen min-h-screen justify-around items-center gap-5 p-20">
+    <main className="flex flex-wrap overflow-auto h-screen min-h-screen justify-around items-center gap-5 p-20">
       <div className="absolute top-5 w-full flex justify-end px-5">
         <ModeToggle />
       </div>

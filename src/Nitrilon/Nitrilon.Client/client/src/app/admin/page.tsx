@@ -18,6 +18,7 @@ import {
   ArcElement,
   BarElement,
 } from "chart.js";
+import { ModeToggle } from "@/components/ui/dark-mode-toggle";
 
 // Register the necessary components for a line chart
 ChartJS.register(
@@ -130,8 +131,11 @@ export default function AdminPage() {
   }, [selectedEvent]);
 
   return (
-    <div className="flex p-5 min-h-screen">
-      <aside className="w-1/4 flex flex-col gap-4 flex-grow overflow-y-scroll pr-7">
+    <div className="flex p-5 min-h-screen overflow-hidden">
+      <div className="absolute w-full flex justify-end px-7">
+        <ModeToggle />
+      </div>
+      <aside className="w-1/4 xl:flex min-w-96 flex-col gap-4 flex-grow overflow-y-scroll pr-7 hidden">
         {events.map((event) => (
           <div
             key={event.id}
@@ -158,7 +162,7 @@ export default function AdminPage() {
         ))}
       </aside>
       {/* Charts container */}
-      <section className="w-full flex flex-col min-h-full gap-5">
+      <section className="w-full xl:flex hidden flex-col min-h-full gap-5">
         <h1 className="text-5xl font-bold text-center w-full">
           {selectedEvent?.name || "Vælg et event"}
         </h1>
@@ -187,6 +191,9 @@ export default function AdminPage() {
           </div>
         </div>
       </section>
+      <div className="w-full h-full xl:hidden">
+        <h1 className="text-6xl">Åben denne side på en større skærm!</h1>
+      </div>
     </div>
   );
 }

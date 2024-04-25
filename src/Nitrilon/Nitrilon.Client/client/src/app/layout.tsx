@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="min-h-screen dark">
-      <body className={`${inter.className} min-h-screen`}>
+      <body className={`${inter.className} min-h-screen overflow-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
