@@ -137,7 +137,7 @@ export default function AdminPage() {
         {events.map((event) => (
           <div
             key={event.id}
-            className="collapse collapse-arrow bg-base-200"
+            className="collapse collapse-arrow bg-gray-300 text-black dark:bg-gray-800 dark:text-white"
             onClick={() => handleSelectedEvent(event)}
           >
             <input type="radio" name="my-accordion-2" />
@@ -165,7 +165,7 @@ export default function AdminPage() {
           {selectedEvent?.name || "Vælg et event"}
         </h1>
         <div className="flex-grow flex flex-col gap-3 p-5">
-          <div className="flex-grow bg-gray-800 rounded-md p-3">
+          <div className="flex-grow bg-gray-300 dark:bg-gray-800 rounded-md p-3">
             <Doughnut
               data={{
                 datasets: [],
@@ -176,7 +176,7 @@ export default function AdminPage() {
               }}
             />
           </div>
-          <div className="flex-grow bg-gray-800 rounded-md p-3">
+          <div className="flex-grow bg-gray-300 dark:bg-gray-800 rounded-md p-3">
             <Bar
               data={{
                 datasets: [],
