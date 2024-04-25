@@ -10,26 +10,24 @@ namespace Nitrilon.Entities
         private DateTime date;
         private int attendees;
         private string description;
-        private List<Rating> ratings;
+        private EventRatingData ratings;
         #endregion
 
         #region Constructors
-        public Event(int id, string name, DateTime date, int attendees, string description, List<Rating> ratings)
+        public Event(int id, string name, DateTime date, int attendees, string description)
         {
             Id = id;
             Name = name;
             Date = date;
             Attendees = attendees;
             Description = description;
-            // If ratings is null, throw an exception.
-            this.ratings = ratings ?? throw new ArgumentNullException(nameof(ratings));
         }
 
-        // This works for some reason 😭
-        // JsonConstructor is used to tell the deserializer which constructor to use when deserializing the object.
-        [JsonConstructor]
-        public Event()
+        public Event(int id, string name, DateTime date, int attendees, string description, EventRatingData ratings) :
+            this(id, name, date, attendees, description)
         {
+            // If ratings is null, throw an exception.
+            this.ratings = ratings ?? throw new ArgumentNullException(nameof(ratings));
         }
 
         #endregion
@@ -86,34 +84,7 @@ namespace Nitrilon.Entities
         #endregion
 
         #region Methods
-        public void Add(Rating rating)
-        {
-            // If rating is null, throw an exception.
-            if (rating == null)
-                throw new ArgumentNullException(nameof(rating));
-
-            ratings.Add(rating);
-        }
-
-        public double GetAverageRating()
-        {
-            // If ratings is null, throw an exception.
-            if (ratings == null)
-                throw new ArgumentNullException(nameof(ratings));
-
-            // If ratings is empty, return 0.
-            if (ratings.Count == 0)
-                return 0;
-
-            // Calculate the average rating.
-            double sum = 0;
-            foreach (Rating rating in ratings)
-            {
-                sum += rating.RatingValue;
-            }
-
-            return sum / ratings.Count;
-        }
+        // TODO: Think of useful methods for the Event class.
         #endregion
     }
 }

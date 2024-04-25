@@ -10,12 +10,12 @@ namespace Nitrilon.Api.Controllers
     {
 
         /// <summary>
-        /// Method to get all ratings for a specific event.
+        /// Method to get ratings for a specific event.
         /// </summary>
         /// <param name="eventId">EventId</param>
-        /// <returns>Status 200 with all the ratings</returns>
+        /// <returns>Status 200 with count of the 3 possible ratings.</returns>
         [HttpGet("{eventId}", Name = "GetEventRatings")]
-        public ActionResult<IEnumerable<EventRating>> GetEventRatings(int eventId)
+        public ActionResult<IEnumerable<EventRatingData>> GetEventRatings(int eventId)
         {
             try
             {

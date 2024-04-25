@@ -39,9 +39,8 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
-                    List<Rating> ratings = new List<Rating>();
 
-                    Event newEvent = new Event(id, name, date, attendees, description, ratings);
+                    Event newEvent = new Event(id, name, date, attendees, description);
                     events.Add(newEvent);
                 }
             }
@@ -82,7 +81,7 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
-                    List<Rating> ratings = new List<Rating>();
+                    EventRatingData ratings = GetRatingsByEvent(eventId);
 
                     Event newEvent = new Event(eventId, name, date, attendees, description, ratings);
                     return newEvent;
@@ -214,11 +213,11 @@ namespace Nitrilon.DataAccess
         /// </summary>
         /// <param name="id">EventId</param>
         /// <returns>List of event ratings</returns>
-        public List<EventRating> GetRatingsByEvent(int id)
+        public EventRatingData GetRatingsByEvent(int eventId)
         {
-            List<EventRating> ratings = new List<EventRating>();
+            EventRatingData ratings = default;
 
-            string query = $"SELECT * FROM EventRatings WHERE EventId = {id}";
+            string query = $"EXEC CountAllowedRatingsForEvent @EventId = {eventId}";
 
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -231,14 +230,7 @@ namespace Nitrilon.DataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    EventRating newEventRating = new EventRating
-                    {
-                        Id = Convert.ToInt32(reader["EventRatingId"]),
-                        EventId = Convert.ToInt32(reader["EventId"]),
-                        RatingId = Convert.ToInt32(reader["RatingId"]),
-                    };
 
-                    ratings.Add(newEventRating);
                 }
             }
             catch
@@ -280,9 +272,8 @@ namespace Nitrilon.DataAccess
                     string name = reader["Name"].ToString();
                     int attendees = Convert.ToInt32(reader["Attendees"]);
                     string description = reader["Description"].ToString();
-                    List<Rating> ratings = new List<Rating>();
 
-                    Event newEvent = new Event(id, name, newDate, attendees, description, ratings);
+                    Event newEvent = new Event(id, name, newDate, attendees, description);
                     events.Add(newEvent);
                 }
             }
