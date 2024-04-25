@@ -241,8 +241,14 @@ namespace Nitrilon.DataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
+                    int HappyRating = Convert.ToInt32(reader["RatingId1Count"]);
+                    int NeutralRating = Convert.ToInt32(reader["RatingId2Count"]);
+                    int SadRating = Convert.ToInt32(reader["RatingId3Count"]);
 
+                    ratings = new EventRatingData(HappyRating, NeutralRating, SadRating);
                 }
+
+                return ratings;
             }
             catch
             {
@@ -252,8 +258,6 @@ namespace Nitrilon.DataAccess
             {
                 connection.Close();
             }
-
-            return ratings;
         }
 
         /// <summary>
