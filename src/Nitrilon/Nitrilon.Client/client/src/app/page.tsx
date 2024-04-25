@@ -68,6 +68,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
       });
+      setProgress(84);
       if (!response.ok) {
         setProgress(100);
         toast.error("Der skete en teknisk fejl. Prøv igen senere", {
@@ -80,10 +81,7 @@ export default function Home() {
         return setError(true);
       }
       const data = await response.json();
-      setProgress(90);
-      setTimeout(() => {
-        setProgress(100);
-      }, 1000);
+      setProgress(100);
       setEvents(data);
     }
 
