@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 // Types
 import { Event } from "@/lib/types";
 
-import { Line, Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,11 +15,9 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartData,
   ArcElement,
   BarElement,
 } from "chart.js";
-import { LineChart } from "lucide-react";
 
 // Register the necessary components for a line chart
 ChartJS.register(
@@ -112,7 +110,7 @@ export default function AdminPage() {
               "rgba(189, 200, 28, 0.35)",
               "rgba(210, 65, 21, 0.35)",
             ],
-            borderWidth: 1,
+            borderWidth: 4,
           },
         ],
       });
@@ -135,7 +133,7 @@ export default function AdminPage() {
 
   return (
     <div className="flex p-5 min-h-screen">
-      <aside className="w-1/4 flex flex-col flex-grow overflow-y-scroll">
+      <aside className="w-1/4 flex flex-col gap-4 flex-grow overflow-y-scroll pr-7">
         {events.map((event) => (
           <div
             key={event.id}
@@ -179,7 +177,7 @@ export default function AdminPage() {
             />
           </div>
           <div className="flex-grow bg-gray-800 rounded-md p-3">
-            <Line
+            <Bar
               data={{
                 datasets: [],
                 ...chartData,
