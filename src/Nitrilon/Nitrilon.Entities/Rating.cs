@@ -8,17 +8,22 @@ namespace Nitrilon.Entities
 {
     public class Rating
     {
+        #region Fields
         private int id;
         private int ratingValue;
         private string description;
+        #endregion
 
+        #region Constructors
         public Rating(int id, int ratingValue, string description)
         {
             Id = id;
             RatingValue = ratingValue;
             Description = description;
         }
+        #endregion
 
+        #region Properties
         public int Id
         {
             get => id;
@@ -54,6 +59,6 @@ namespace Nitrilon.Entities
                 description = value;
             }
         }
-
+#endregion
     }
 }

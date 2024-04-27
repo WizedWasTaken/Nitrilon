@@ -131,18 +131,18 @@ export default function AdminPage() {
   }, [selectedEvent]);
 
   return (
-    <div className="flex p-5 min-h-screen overflow-hidden">
+    <div className="flex p-5 min-h-screen">
       <div className="absolute w-full flex justify-end px-7">
         <ModeToggle />
       </div>
-      <aside className="w-1/4 xl:flex min-w-96 flex-col gap-4 flex-grow overflow-y-scroll pr-7 hidden">
+      <aside className="h-screen join join-vertical xl:block min-w-96 pb-10 overflow-y-scroll pr-7">
         {events.map((event) => (
           <div
             key={event.id}
-            className="collapse collapse-arrow bg-gray-300 text-black dark:bg-gray-800 dark:text-white"
+            className="join-item collapse collapse-arrow bg-gray-300 text-black dark:bg-gray-800 dark:text-white"
             onClick={() => handleSelectedEvent(event)}
           >
-            <input type="radio" name="my-accordion-2" />
+            <input type="radio" name="event-accordion" />
             <div className="collapse-title text-xl font-medium">
               <b>{event.name}</b> {new Date(event.date).toLocaleDateString()}
             </div>
@@ -162,8 +162,8 @@ export default function AdminPage() {
         ))}
       </aside>
       {/* Charts container */}
-      <section className="w-full xl:flex hidden flex-col min-h-full gap-5">
-        <h1 className="text-5xl font-bold text-center w-full">
+      <section className="w-full xl:flex hidden flex-col min-h-full max-h-screen gap-5 py-5">
+        <h1 className="text-4xl font-bold text-center w-full">
           {selectedEvent?.name || "Vælg et event"}
         </h1>
         <div className="flex-grow flex flex-col gap-3 p-5">

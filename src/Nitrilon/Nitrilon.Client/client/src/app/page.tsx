@@ -81,6 +81,7 @@ export default function Home() {
         return setError(true);
       }
       const data = await response.json();
+      console.log("Data", data);
       setProgress(100);
       setEvents(data);
     }
@@ -93,10 +94,12 @@ export default function Home() {
 
   return (
     <main className="flex flex-wrap overflow-auto h-screen min-h-screen justify-around items-center gap-5 p-20">
-      <div className="absolute top-5 w-full flex justify-end px-5">
-        <ModeToggle />
-      </div>
-      {progress == 100 &&
+      {!selectedEvent && !showModal && !isLoading && (
+        <div className="absolute top-5 w-full flex justify-end px-5">
+          <ModeToggle />
+        </div>
+      )}
+      {!isLoading &&
         events.map((event) => (
           <Card
             key={event.id}
@@ -131,7 +134,7 @@ export default function Home() {
           </h1>
           <button
             className="w-[30%] h-[70%] relative"
-            onClick={() => handleGradeClick(3)}
+            onClick={() => handleGradeClick(1)}
           >
             <Image
               src="/images/emoji/happy.webp"
@@ -153,7 +156,7 @@ export default function Home() {
           </button>
           <button
             className="w-[30%] h-[70%] text-6xl relative"
-            onClick={() => handleGradeClick(1)}
+            onClick={() => handleGradeClick(3)}
           >
             <Image
               src="/images/emoji/sad.png"
