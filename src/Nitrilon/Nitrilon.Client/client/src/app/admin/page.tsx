@@ -135,7 +135,7 @@ export default function AdminPage() {
       <div className="absolute w-full flex justify-end px-7">
         <ModeToggle />
       </div>
-      <aside className="h-screen join join-vertical xl:block min-w-96 pb-10 overflow-y-scroll pr-7">
+      <aside className="h-screen join join-vertical hidden xl:block min-w-96 pb-10 overflow-y-scroll pr-7">
         {events.map((event) => (
           <div
             key={event.id}
