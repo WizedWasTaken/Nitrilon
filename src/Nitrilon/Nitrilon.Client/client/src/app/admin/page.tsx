@@ -40,6 +40,7 @@ const API_EVENT_RATING_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/EventRating
 export default function AdminPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [ratingSum, setRatingSum] = useState(0);
   const [chartData, setChartData] = useState({});
 
   useEffect(() => {
@@ -91,6 +92,8 @@ export default function AdminPage() {
         2: ratings.neutralRatingCount,
         3: ratings.badRatingCount,
       };
+
+      setRatingSum(ratingCount[1] + ratingCount[2] + ratingCount[3]);
 
       // Update the chart data
       setChartData({
@@ -164,7 +167,8 @@ export default function AdminPage() {
       {/* Charts container */}
       <section className="w-full xl:flex hidden flex-col min-h-full max-h-screen gap-5 py-5">
         <h1 className="text-4xl font-bold text-center w-full">
-          {selectedEvent?.name || "Vælg et event"}
+          {selectedEvent?.name || "Vælg et event"}{" "}
+          <span>{ratingSum} anmeldelser</span>
         </h1>
         <div className="flex-grow flex flex-col gap-3 p-5">
           <div className="flex-grow bg-gray-300 dark:bg-gray-800 rounded-md p-3">
