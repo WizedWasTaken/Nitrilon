@@ -436,6 +436,205 @@ namespace Nitrilon.DataAccess
 
             return members;
         }
+
+        /// <summary>
+        /// Method to get all soft deleted members from the database.
+        /// </summary>
+        /// <returns>List of all deleted members</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public List<Member> GetDeletedMembers()
+        {
+            List<Member> members = new List<Member>();
+
+            string query = @"SELECT dbo.Memberships.Name AS MembershipName, dbo.Memberships.Description AS MembershipDescription, dbo.Members.* FROM dbo.Members INNER JOIN
+                         dbo.Memberships ON dbo.Members.MembershipId = dbo.Memberships.MembershipId WHERE IsDeleted = 1";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["MemberId"]);
+                    string name = reader["Name"].ToString();
+                    string phoneNumber = reader["PhoneNumber"].ToString();
+                    string email = reader["Email"].ToString();
+                    DateTime enrollmentDate = Convert.ToDateTime(reader["EnrollmentDate"]);
+                    Membership membership = new Membership(Convert.ToInt32(reader["MembershipId"]),
+                        reader["MembershipName"].ToString(), reader["MembershipDescription"].ToString());
+
+                    Member newMember = new Member(id, name, phoneNumber, email, enrollmentDate, membership);
+                    members.Add(newMember);
+                }
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while getting the members.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return members;
+        }
+
+        public List<Member> GetNonDeletedMembers()
+        {
+            List<Member> members = new List<Member>();
+
+            string query = @"SELECT dbo.Memberships.Name AS MembershipName, dbo.Memberships.Description AS MembershipDescription, dbo.Members.* FROM dbo.Members INNER JOIN
+                         dbo.Memberships ON dbo.Members.MembershipId = dbo.Memberships.MembershipId WHERE IsDeleted = 0";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["MemberId"]);
+                    string name = reader["Name"].ToString();
+                    string phoneNumber = reader["PhoneNumber"].ToString();
+                    string email = reader["Email"].ToString();
+                    DateTime enrollmentDate = Convert.ToDateTime(reader["EnrollmentDate"]);
+                    Membership membership = new Membership(Convert.ToInt32(reader["MembershipId"]),
+                        reader["MembershipName"].ToString(), reader["MembershipDescription"].ToString());
+
+                    Member newMember = new Member(id, name, phoneNumber, email, enrollmentDate, membership);
+                    members.Add(newMember);
+                }
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while getting the members.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return members;
+        }
+
+        public Member GetMemberById(int id)
+        {
+                        string query = $"SELECT dbo.Memberships.Name AS MembershipName, dbo.Memberships.Description AS MembershipDescription, dbo.Members.* FROM dbo.Members INNER JOIN dbo.Memberships ON dbo.Members.MembershipId = dbo.Memberships.MembershipId WHERE MemberId = {id}";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int memberId = Convert.ToInt32(reader["MemberId"]);
+                    string name = reader["Name"].ToString();
+                    string phoneNumber = reader["PhoneNumber"].ToString();
+                    string email = reader["Email"].ToString();
+                    DateTime enrollmentDate = Convert.ToDateTime(reader["EnrollmentDate"]);
+                    Membership membership = new Membership(Convert.ToInt32(reader["MembershipId"]),
+                        reader["MembershipName"].ToString(), reader["MembershipDescription"].ToString());
+
+                    Member newMember = new Member(memberId, name, phoneNumber, email, enrollmentDate, membership);
+                    return newMember;
+                }
+
+                throw new ArgumentException("Member not found.");
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while getting the member.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Method to get a specific member from the database.
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public Boolean SoftDelete(int MemberId)
+        {
+            string query = $"UPDATE Members SET IsDeleted = CASE WHEN IsDeleted = 1 THEN 0 ELSE 1 END WHERE MemberId = {MemberId}";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            connection.Open();
+
+            try
+            {
+                command.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while deleting the member.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Method to update a member in the database.
+        /// </summary>
+        /// <param name="updatedMember">New member object</param>
+        /// <returns>New member object</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public Member Update(Member updatedMember)
+        {
+            string query = $"UPDATE Members " +
+                           $"SET Name = '{updatedMember.Name}', " +
+                           $"PhoneNumber = '{updatedMember.PhoneNumber}', " +
+                           $"Email = '{updatedMember.Email}', " +
+                           $"EnrollmentDate = '{updatedMember.EnrollmentDate.ToString("yyyy-MM-dd")}', " +
+                           $"MembershipId = {updatedMember.Membership.MembershipId}" +
+                           $" WHERE MemberId = {updatedMember.MemberId}";
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            connection.Open();
+
+            try
+            {
+                command.ExecuteNonQuery();
+
+                return updatedMember;
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while updating the member.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
 
