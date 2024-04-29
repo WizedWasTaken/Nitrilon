@@ -349,7 +349,12 @@ namespace Nitrilon.DataAccess
 
         // !! MEMBER METHODS !!
 
-        // TODO: This no workey workey ;(
+        /// <summary>
+        /// Method to create a new member in the database.
+        /// </summary>
+        /// <param name="member">Member object</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public int Create(Member member)
         {
             int newId = -1;
@@ -384,11 +389,18 @@ namespace Nitrilon.DataAccess
             }
         }
 
+        /// <summary>
+        /// Method to get all members from the database with their membership status.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<Member> GetAllMembers()
         {
             List<Member> members = new List<Member>();
 
-            string query = @"SELECT m.MemberId, m.Name, m.PhoneNumber, m.Email, m.EnrollmentDate, m.MembershipId, mt.Name AS MembershipName, mt.Description, mt.MembershipId FROM Members m JOIN Memberships mt ON m.MembershipId = mt.MembershipId";
+            // Tak til SSMS for JOIN queryen :)
+            string query = @"SELECT dbo.Memberships.Name AS MembershipName, dbo.Memberships.Description AS MembershipDescription, dbo.Members.* FROM dbo.Members INNER JOIN
+                         dbo.Memberships ON dbo.Members.MembershipId = dbo.Memberships.MembershipId";
 
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -407,7 +419,7 @@ namespace Nitrilon.DataAccess
                     string phoneNumber = reader["PhoneNumber"].ToString();
                     string email = reader["Email"].ToString();
                     DateTime enrollmentDate = Convert.ToDateTime(reader["EnrollmentDate"]);
-                    var membership = new Membership(Convert.ToInt32(reader["MembershipId"]), reader["MembershipName"].ToString(), reader["Description"].ToString());
+                    Membership membership = new Membership(Convert.ToInt32(reader["MembershipId"]), reader["MembershipName"].ToString(), reader["MembershipDescription"].ToString());
 
                     Member newMember = new Member(id, name, phoneNumber, email, enrollmentDate, membership);
                     members.Add(newMember);

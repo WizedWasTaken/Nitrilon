@@ -1,4 +1,6 @@
-﻿namespace Nitrilon.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Nitrilon.Entities;
 
 public class Member
 {
@@ -13,10 +15,6 @@ public class Member
 
     #region Constructors
 
-    public Member()
-    {
-    }
-
     public Member(int memberId, string name, string phoneNumber, string email)
     {
         MemberId = memberId;
@@ -26,6 +24,7 @@ public class Member
         enrollmentDate = DateTime.Now;
     }
 
+    [JsonConstructor]
     public Member(int memberId, string name, string phoneNumber, string email, DateTime enrollmentDate,
         Membership membership)
     {
@@ -69,6 +68,4 @@ public class Member
         get => membership; set => membership = value;
     }
     #endregion
-
-
 }

@@ -1,4 +1,6 @@
-﻿namespace Nitrilon.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Nitrilon.Entities;
 
 public class Membership
 {
@@ -16,6 +18,7 @@ public class Membership
         Description = description;
     }
 
+    [JsonConstructor]
     public Membership(int membershipId, string name, string description)
     {
         MembershipId = membershipId;
@@ -29,7 +32,14 @@ public class Membership
     public int MembershipId
     {
         get { return membershipId; }
-        set { membershipId = value; }
+        set
+        {
+            if(value <= 0) {
+                throw new ArgumentException("Membership isn't valid.");
+            }
+
+            membershipId = value;
+        }
     }
 
     public string Name

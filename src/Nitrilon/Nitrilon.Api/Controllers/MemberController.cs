@@ -22,7 +22,7 @@ namespace Nitrilon.Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -38,7 +38,7 @@ namespace Nitrilon.Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
     }
