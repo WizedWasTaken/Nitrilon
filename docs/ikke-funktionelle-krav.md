@@ -29,9 +29,18 @@ Aktører:
 
 07: Når den klargøringsansvarlige har valgt et event, skal systemet viderestille til bedømmelsessiden.
 
-## Ikke-funktionelle krav
+# Subsystem 02: Medlemshåndtering
 
-# IKKE_FUNKTIONELLE KRAV
+## Aktører
+
+- Medlemsansvarlige: Den der skal kunne tilføje, fjerne og se medlemmer samt medlemskab
+
+1. Den medlemsansvarlige skal have et overblik over alle medlemmer, medlemskabs type og status.
+2. Den medlemsansvarlige skal have mulighed for at sætte et medlems status til passiv/aktiv.
+3. Den medlemsansvarlige skal kunne indmelde nye medlemmer.
+4. Den medlemsansvarlige skal kunne udmelde medlemmer.
+
+# Ikke-funktionelle krav
 
 Systemet skal overholde følgende ikke-funktionelle krav: 01. Databasen skal hostes på en Microsoft SQL Express Server 2019 på din lokale maskine.
 
