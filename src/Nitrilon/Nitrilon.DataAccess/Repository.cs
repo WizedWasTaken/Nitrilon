@@ -345,5 +345,85 @@ namespace Nitrilon.DataAccess
                 connection.Close();
             }
         }
+
+
+        // !! MEMBER METHODS !!
+
+        // TODO: This no workey workey ;(
+        public int Create(Member member)
+        {
+            int newId = -1;
+
+            string query = $"INSERT INTO Members (Name, PhoneNumber, Email, EnrollmentDate, MembershipId) " +
+                           $"VALUES ('{member.Name}', '{member.PhoneNumber}', '{member.Email}', '{member.EnrollmentDate.ToString("yyyy-MM-dd")}', {member.Membership.MembershipId});" +
+                           $"SELECT SCOPE_IDENTITY();";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            connection.Open();
+
+            try
+            {
+                SqlDataReader SqlDataReader = command.ExecuteReader();
+                while (SqlDataReader.Read())
+                {
+                    newId = (int)SqlDataReader.GetDecimal(0);
+                }
+
+                return newId;
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while saving the member.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public List<Member> GetAllMembers()
+        {
+            List<Member> members = new List<Member>();
+
+            string query = @"SELECT m.MemberId, m.Name, m.PhoneNumber, m.Email, m.EnrollmentDate, m.MembershipId, mt.Name AS MembershipName, mt.Description, mt.MembershipId FROM Members m JOIN Memberships mt ON m.MembershipId = mt.MembershipId";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["MemberId"]);
+                    string name = reader["Name"].ToString();
+                    string phoneNumber = reader["PhoneNumber"].ToString();
+                    string email = reader["Email"].ToString();
+                    DateTime enrollmentDate = Convert.ToDateTime(reader["EnrollmentDate"]);
+                    var membership = new Membership(Convert.ToInt32(reader["MembershipId"]), reader["MembershipName"].ToString(), reader["Description"].ToString());
+
+                    Member newMember = new Member(id, name, phoneNumber, email, enrollmentDate, membership);
+                    members.Add(newMember);
+                }
+            }
+            catch
+            {
+                throw new ArgumentException("An error occurred while getting the members.");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return members;
+        }
     }
 }
+

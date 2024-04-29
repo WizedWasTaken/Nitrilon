@@ -6,11 +6,17 @@
 -- !!!! Må IKKE bruges i produktion, da det sletter alt data i databasen !!!! --
 --------------------------------------------------------------------------------
 
-DELETE FROM EventRatings; -- Slet alle data i EventRatings tabellen
-DELETE FROM Ratings; -- Slet alle data i Ratings tabellen
-DELETE FROM Events; -- Slet alle data i Events tabellen
-DELETE FROM Members; -- Slet alle data i Members tabellen
-DELETE FROM Memberships; -- Slet alle data i Memberships tabellen
+-- Slå alle constraints fra
+EXEC sp_MSforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all";
+
+-- Slet alle data i alle tabeller
+EXEC sp_MSforeachtable "DELETE FROM ?";
+
+-- Reseed alle tabeller, så de starter fra 1 igen
+EXEC sp_MSforeachtable "IF OBJECTPROPERTY(object_id('?', 'U'), 'TableHasIdentity') = 1 BEGIN DBCC CHECKIDENT ('?', RESEED, 0); END";
+
+-- Slå alle constraints til igen
+EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
 
 -- Automatisk indsæt data i tabellerne
 
