@@ -1,7 +1,5 @@
+import { MembersTable } from "@/components/customDataTable/members";
+
 export default function Overview() {
-  return (
-    <div>
-      <h1>Overview</h1>
-    </div>
-  );
+  return <MembersTable />;
 }
