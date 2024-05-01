@@ -19,72 +19,10 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
+                MemberRepository repo = new();
                 var members = repo.GetAllMembers();
 
                 return Ok(members);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Method to get all deleted members from the database.
-        /// </summary>
-        /// <returns>Method to get all deleted members</returns>
-        [HttpGet]
-        [Route("deleted")]
-        public IActionResult GetDeletedMembers()
-        {
-            try
-            {
-                Repository repo = new Repository();
-                var members = repo.GetDeletedMembers();
-
-                return Ok(members);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Method to get all active members from the database.
-        /// </summary>
-        /// <returns>List of all active members</returns>
-        [HttpGet]
-        [Route("active")]
-        public IActionResult GetActiveMembers()
-        {
-            try
-            {
-                Repository repo = new Repository();
-                var members = repo.GetNonDeletedMembers();
-
-                return Ok(members);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Method to get a specific member from the database.
-        /// </summary>
-        [HttpGet]
-        [Route("{memberId}")]
-        public IActionResult GetMember(int memberId)
-        {
-            try
-            {
-                Repository repo = new Repository();
-                var member = repo.GetMemberById(memberId);
-
-                return Ok(member);
             }
             catch (Exception ex)
             {
@@ -102,10 +40,10 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
-                int rowId = repo.Create(member);
+                MemberRepository repo = new();
+                repo.CreateMember(member);
 
-                return StatusCode(rowId);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -123,7 +61,7 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
+                MemberRepository repo = new();
                 repo.SoftDelete(memberId);
 
                 return Ok();
@@ -143,8 +81,8 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
-                repo.Update(member);
+                MemberRepository repo = new();
+                repo.UpdateMember(member);
 
                 return Ok();
             }

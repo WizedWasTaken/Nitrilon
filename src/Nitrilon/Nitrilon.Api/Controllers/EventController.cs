@@ -21,7 +21,7 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
+                EventRepository repo = new();
                 var events = repo.GetAllEvents();
 
                 return Ok(events);
@@ -43,7 +43,7 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
+                EventRepository repo = new();
                 Event result = repo.GetEventById(id);
 
                 // Quick check to see if the event was found.
@@ -72,7 +72,7 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
+                EventRepository repo = new();
                 var events = repo.GetEventsAfterDate(date);
                 return Ok(events);
             }
@@ -93,8 +93,8 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
-                int result = repo.Save(newEvent);
+                EventRepository repo = new();
+                int result = repo.CreateEvent(newEvent);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -114,8 +114,8 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
-                Event result = repo.Update(updatedEvent);
+                EventRepository repo = new();
+                Event result = repo.UpdateEvent(updatedEvent);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -137,18 +137,14 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
-                int result = repo.DeleteEvent(id);
+                EventRepository repo = new();
+                repo.DeleteEvent(id);
 
-                if (result == 0)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
+                return Ok();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
     }

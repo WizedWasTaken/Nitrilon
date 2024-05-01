@@ -19,7 +19,7 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
+                EventRepository repo = new();
                 var ratings = repo.GetRatingsByEvent(eventId);
                 return Ok(ratings);
             }
@@ -40,7 +40,7 @@ namespace Nitrilon.Api.Controllers
         {
             try
             {
-                Repository repo = new Repository();
+                EventRepository repo = new();
                 int res = repo.CreateRating(EventId, RatingId);
                 return Ok(res);
             }

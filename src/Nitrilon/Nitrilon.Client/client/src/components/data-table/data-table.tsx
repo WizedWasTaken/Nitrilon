@@ -46,6 +46,18 @@ export function DataTable<TData, TValue>({
 
   const [rowSelection, setRowSelection] = React.useState({});
 
+  // Function to update row data
+  // @ts-ignore
+  const updateRowData = (rowId, newIsDeleted) => {
+    // @ts-ignore
+    setData((currentData) =>
+      // @ts-ignore
+      currentData.map((row) =>
+        row.memberId === rowId ? { ...row, isDeleted: newIsDeleted } : row
+      )
+    );
+  };
+
   const table = useReactTable({
     data,
     columns,
@@ -57,6 +69,7 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+
     state: {
       sorting,
       columnFilters,

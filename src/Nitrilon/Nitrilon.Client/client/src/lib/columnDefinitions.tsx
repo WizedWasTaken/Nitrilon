@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {} from "@tanstack/react-table";
 
 import { DataTableColumnHeader } from "@/components/data-table/data-table-header";
 
@@ -23,6 +24,28 @@ import { Member } from "@/lib/types";
 
 // ! This is an example table column. Copy columns from UserTableColumns and modify them.
 export const MemberTableColumn: ColumnDef<Member>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -82,7 +105,16 @@ export const MemberTableColumn: ColumnDef<Member>[] = [
         {row.original.membership.name}
       </div>
     ),
-    enableHiding: false,
+  },
+  {
+    accessorKey: "isDeleted",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Indmeldt" />
+    ),
+    cell: ({ row }) => {
+      let isDeleted: boolean = row.renderValue("isDeleted");
+      return <div className="text-right">{isDeleted ? "Nej" : "Ja"}</div>;
+    },
   },
   {
     id: "actions",
@@ -107,7 +139,27 @@ export const MemberTableColumn: ColumnDef<Member>[] = [
               Kopier medlem ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Se bruger</DropdownMenuItem>
+            {/* TODO: Add indmeld og udmeld option */}
+            {/* TODO: There's a bug with it not updating the text in "isDeleted" when indmelding or outmelding.  */}
+            <DropdownMenuItem
+              onClick={() => {
+                const { memberId, isDeleted } = row.original;
+                fetch(
+                  `${process.env.NEXT_PUBLIC_API_URL}/api/Member?memberId=${memberId}`,
+                  {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ isDeleted: !isDeleted }),
+                  }
+                ).then((response) => {
+                  console.log(row.original.isDeleted);
+                  row.original.isDeleted = !isDeleted;
+                  console.log(row.original.isDeleted);
+                });
+              }}
+            >
+              {row.original.isDeleted ? "Indmeld" : "Udmeld"}
+            </DropdownMenuItem>
             <DropdownMenuItem>Se bruger detaljer</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

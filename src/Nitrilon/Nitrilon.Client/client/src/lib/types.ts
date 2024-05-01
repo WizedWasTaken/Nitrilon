@@ -19,5 +19,6 @@ export type Event = {
     phoneNumber: string;
     email: string;
     enrollmentDate: Date;
+    isDeleted: boolean;
     membership: Membership;
   }

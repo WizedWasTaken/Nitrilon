@@ -10,22 +10,24 @@ public class Member
     private string phoneNumber;
     private string email;
     private DateTime enrollmentDate;
+    private bool isDeleted;
     private Membership membership;
     #endregion
 
     #region Constructors
 
-    public Member(int memberId, string name, string phoneNumber, string email)
+    public Member(int memberId, string name, string phoneNumber, string email, bool isDeleted)
     {
         MemberId = memberId;
         Name = name;
         PhoneNumber = phoneNumber;
         Email = email;
+        IsDeleted = isDeleted;
         enrollmentDate = DateTime.Now;
     }
 
     [JsonConstructor]
-    public Member(int memberId, string name, string phoneNumber, string email, DateTime enrollmentDate,
+    public Member(int memberId, string name, string phoneNumber, string email, bool isDeleted, DateTime enrollmentDate,
         Membership membership)
     {
         MemberId = memberId;
@@ -33,6 +35,7 @@ public class Member
         PhoneNumber = phoneNumber;
         Email = email;
         EnrollmentDate = enrollmentDate;
+        IsDeleted = isDeleted;
         Membership = membership;
     }
     #endregion
@@ -61,6 +64,11 @@ public class Member
     public DateTime EnrollmentDate
     {
         get => enrollmentDate; set => enrollmentDate = value;
+    }
+
+    public bool IsDeleted
+    {
+        get => isDeleted; set => isDeleted = value;
     }
 
     public Membership Membership
