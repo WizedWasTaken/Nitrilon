@@ -27,9 +27,8 @@ export default function MembersTableTop({
     membershipId: number
   ) => void;
 }) {
-  const [name, phoneNumber, email, enrollmentDate] = [0, 1, 2, 3];
-
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    console.log("handleSubmit");
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = formData.get("name") as string;
@@ -43,13 +42,6 @@ export default function MembersTableTop({
     const enrollmentDate = formData.get("enrollmentDate") as string;
     const membershipId = 1;
 
-    if (!name || !phoneNumber || !email || !enrollmentDate) {
-      toast.error("Udfyld alle felter", {
-        duration: 5000,
-      });
-
-      return;
-    }
     createNewMember(
       name,
       phoneNumber,
@@ -71,18 +63,17 @@ export default function MembersTableTop({
           </DialogDescription>
           <form onSubmit={handleSubmit}>
             <Label htmlFor="name">Navn</Label>
-            <Input name="name" id="name" type="text" required />
+            <Input name="name" id="name" type="text" />
             <Label htmlFor="phoneNumber">Telefonnummer</Label>
-            <Input name="phoneNumber" id="phoneNumber" type="text" required />
+            <Input name="phoneNumber" id="phoneNumber" type="text" />
             <Label htmlFor="email">Email</Label>
-            <Input name="email" id="email" type="email" required />
+            <Input name="email" id="email" type="email" />
             <Label htmlFor="enrollmentDate">Indmeldelsesdato</Label>
             <Input
               name="enrollmentDate"
               id="enrollmentDate"
               type="date"
               defaultValue={new Date().toISOString().split("T")[0]}
-              required
             />
             <DialogFooter>
               <DialogClose asChild>

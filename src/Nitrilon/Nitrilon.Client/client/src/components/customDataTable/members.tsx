@@ -33,10 +33,14 @@ export function MembersTable() {
   ) => {
     console.log("createMember");
     console.log(name);
-    console.log(phoneNumber);
-    console.log(email);
-    console.log(enrollmentDate);
-    console.log(membershipId);
+    if (name.length === 0 || phoneNumber.length === 0 || email.length === 0) {
+      toast.error("Udfyld alle felter", {
+        duration: 5000,
+      });
+
+      return;
+    }
+
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
