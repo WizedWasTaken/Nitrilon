@@ -145,7 +145,7 @@ export const MemberTableColumn = (
             >
               {row.original.isDeleted ? "Indmeld" : "Udmeld"}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => console.log("Rediger")}>
+            <DropdownMenuItem onClick={() => alert("Virker snart brødre")}>
               Rediger
             </DropdownMenuItem>
           </DropdownMenuContent>
