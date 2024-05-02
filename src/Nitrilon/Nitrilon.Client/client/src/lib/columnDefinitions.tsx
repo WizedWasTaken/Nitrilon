@@ -35,6 +35,7 @@ import { MoreHorizontal } from "lucide-react";
 import { Member, Membership } from "@/lib/types";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
+import { toast } from "sonner";
 
 // ! This is an example table column. Copy columns from UserTableColumns and modify them.
 export function MemberTableColumn(
@@ -169,6 +170,33 @@ export function MemberTableColumn(
                 >
                   {row.original.isDeleted ? "Indmeld" : "Udmeld"}
                 </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    fetch(
+                      `${process.env.NEXT_PUBLIC_API_URL}/api/Member/updateMembership?memberId=${member.memberId}`,
+                      {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ membershipId: membershipId }),
+                      }
+                    ).then((response) => {
+                      if (!response.ok) {
+                        toast.error("Kunne ikke opdatere brugerens medlemskab");
+                      }
+                      updateMember({
+                        ...member,
+                        membership: {
+                          ...member.membership,
+                          membershipId: parseInt(membershipId),
+                        },
+                      });
+
+                      toast.success("Medlemskabet blev opdateret");
+                    });
+                  }}
+                >
+                  Skift medlemskab
+                </DropdownMenuItem>
                 <DialogTrigger asChild>
                   <DropdownMenuItem>Rediger</DropdownMenuItem>
                 </DialogTrigger>
@@ -196,7 +224,6 @@ export function MemberTableColumn(
                   const enrollmentDate = formData.get(
                     "enrollmentDate"
                   ) as string;
-                  const membershipId = formData.get("membershipId") as string;
 
                   updateMember({
                     ...member,
@@ -247,23 +274,6 @@ export function MemberTableColumn(
                           .split("T")[0]
                       }
                     />
-                  </div>
-                  <div>
-                    <RadioGroup
-                      value={membershipId}
-                      onValueChange={(value) => {
-                        setMembershipId(value as string);
-                      }}
-                    >
-                      <div className="flex space-x-2">
-                        <RadioGroupItem value="1">Aktiv</RadioGroupItem>
-                        <Label>Aktiv</Label>
-                      </div>
-                      <div className="flex space-x-2">
-                        <RadioGroupItem value="2">Passiv</RadioGroupItem>
-                        <Label>Passiv</Label>
-                      </div>
-                    </RadioGroup>
                   </div>
                 </DialogDescription>
                 <DialogFooter>

@@ -91,5 +91,25 @@ namespace Nitrilon.Api.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to update an existing member's membership in the database.
+        /// </summary>
+        [HttpPut]
+        [Route("updateMembership")]
+        public IActionResult UpdateMembership(int memberId)
+        {
+            try
+            {
+                MemberRepository repo = new();
+                repo.UpdateMembership(memberId);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

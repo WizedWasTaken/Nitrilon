@@ -118,6 +118,27 @@ public class MemberRepository : Repository
         }
     }
 
-    #endregion
+    public Member UpdateMembership(int memberId)
+    {
+        try
+        {
+            string query =
+                $"UPDATE Members SET MembershipId = CASE WHEN MembershipId = 1 THEN 2 ELSE 1 END WHERE MemberId = {memberId}";
 
+            Execute(query);
+
+            // TODO: FIx this shit
+            return null;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        finally
+        {
+            CloseConnection();
+        }
+    }
 }
+
+#endregion
