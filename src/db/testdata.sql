@@ -60,7 +60,35 @@ INSERT INTO Members (Name, Email, MembershipId) VALUES
 ('John Smith', 'john@smith.com', 1),
 ('Jane Smith', 'jane@smith.com', 2),
 ('John Johnson', 'john@johnson.com', 1),
-('Jane Johnson', 'john@johnson.com', 2);
+('Jane Johnson', 'jane@johnson.com', 2),
+('John Jensen', 'john@jensen.com', 1),
+('Jane Jensen', 'jane@jensen.com', 2),
+('John Williams', 'john@williams.com', 1),
+('Jane Williams', 'jane@williams.com', 2),
+('John Brown', 'john@brown.com', 1),
+('Jane Brown', 'jane@brown.com', 2),
+('John Davis', 'john@davis.com', 1),
+('Jane Davis', 'jane@davis.com', 2),
+('John Miller', 'john@miller.com', 1),
+('Jane Miller', 'jane@miller.com', 2),
+('John Wilson', 'john@wilson.com', 1),
+('Jane Wilson', 'jane@wilson.com', 2),
+('John Moore', 'john@moore.com', 1),
+('Jane Moore', 'jane@moore.com', 2),
+('John Taylor', 'john@taylor.com', 1),
+('Jane Taylor', 'jane@taylor.com', 2),
+('John Anderson', 'john@anderson.com', 1),
+('Jane Anderson', 'jane@anderson.com', 2),
+('John Thomas', 'john@thomas.com', 1),
+('Jane Thomas', 'jane@thomas.com', 2),
+('John Jackson', 'john@jackson.com', 1),
+('Jane Jackson', 'jane@jackson.com', 2),
+('John White', 'john@white.com', 1),
+('Jane White', 'jane@white.com', 2),
+('John Harris', 'john@harris.com', 1),
+('Jane Harris', 'jane@harris.com', 2);
+
+
 
 ------------------
 -- Events Table --

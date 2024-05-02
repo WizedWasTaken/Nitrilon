@@ -23,7 +23,9 @@ import { MoreHorizontal } from "lucide-react";
 import { Member } from "@/lib/types";
 
 // ! This is an example table column. Copy columns from UserTableColumns and modify them.
-export const MemberTableColumn: ColumnDef<Member>[] = [
+export const MemberTableColumn = (
+  updateMemberStatus: (memberId: number, isDeleted: boolean) => void
+): ColumnDef<Member>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -144,22 +146,12 @@ export const MemberTableColumn: ColumnDef<Member>[] = [
             <DropdownMenuItem
               onClick={() => {
                 const { memberId, isDeleted } = row.original;
-                fetch(
-                  `${process.env.NEXT_PUBLIC_API_URL}/api/Member?memberId=${memberId}`,
-                  {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ isDeleted: !isDeleted }),
-                  }
-                ).then((response) => {
-                  console.log(row.original.isDeleted);
-                  row.original.isDeleted = !isDeleted;
-                  console.log(row.original.isDeleted);
-                });
+                updateMemberStatus(memberId, isDeleted);
               }}
             >
               {row.original.isDeleted ? "Indmeld" : "Udmeld"}
             </DropdownMenuItem>
+
             <DropdownMenuItem>Se bruger detaljer</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
