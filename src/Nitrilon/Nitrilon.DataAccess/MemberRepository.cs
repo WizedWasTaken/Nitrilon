@@ -39,7 +39,7 @@ public class MemberRepository : Repository
                 string email = Convert.ToString(reader["Email"]);
                 bool isDeleted = Convert.ToBoolean(reader["IsDeleted"]);
                 DateTime enrollmentDate = Convert.ToDateTime(reader["EnrollmentDate"]);
-                Membership membership = new Membership(Convert.ToString(reader["MembershipName"]), Convert.ToString(reader["MembershipDescription"]));
+                Membership membership = new Membership(Convert.ToInt32(reader["MembershipId"]), Convert.ToString(reader["MembershipName"]), Convert.ToString(reader["MembershipDescription"]));
 
                 Member m = new(memberId, name, phoneNumber, email, isDeleted, enrollmentDate, membership);
 
@@ -62,8 +62,7 @@ public class MemberRepository : Repository
     {
         try
         {
-            string query =
-                "INSERT INTO Members (Name, PhoneNumber, Email, IsDeleted) VALUES (@Name, @PhoneNumber, @Email, @IsDeleted); SELECT SCOPE_IDENTITY()";
+            string query = $"INSERT INTO Members (Name, PhoneNumber, Email, EnrollmentDate, MembershipId) VALUES ('{member.Name}', '{member.PhoneNumber}', '{member.Email}', '{member.EnrollmentDate}', '{member.Membership.MembershipId}')";
 
             Execute(query);
 

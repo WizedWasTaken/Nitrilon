@@ -11,7 +11,6 @@ export default function Overview() {
         <p className="text-muted-foreground">
           Her kan du se en oversigt over alle medlemmer.
         </p>
-        <MembersTableTop />
       </section>
       <section>
         <MembersTable />

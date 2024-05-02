@@ -12,11 +12,11 @@ public class Membership
 
     #region Constructors
 
-    public Membership(string name, string description)
-    {
-        Name = name;
-        Description = description;
-    }
+    //public Membership(string name, string description)
+    //{
+    //    Name = name;
+    //    Description = description;
+    //}
 
     [JsonConstructor]
     public Membership(int membershipId, string name, string description)
@@ -34,8 +34,9 @@ public class Membership
         get { return membershipId; }
         set
         {
-            if(value <= 0) {
-                throw new ArgumentException("Membership isn't valid.");
+            if (value <= 0)
+            {
+                value = 1;
             }
 
             membershipId = value;

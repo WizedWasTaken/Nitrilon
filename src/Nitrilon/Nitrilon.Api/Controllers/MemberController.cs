@@ -41,9 +41,9 @@ namespace Nitrilon.Api.Controllers
             try
             {
                 MemberRepository repo = new();
-                repo.CreateMember(member);
+                Member m = repo.CreateMember(member);
 
-                return Ok();
+                return Ok(m);
             }
             catch (Exception ex)
             {

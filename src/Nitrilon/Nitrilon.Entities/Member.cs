@@ -63,7 +63,18 @@ public class Member
 
     public DateTime EnrollmentDate
     {
-        get => enrollmentDate; set => enrollmentDate = value;
+        get => enrollmentDate;
+        set
+        {
+            if (value == DateTime.MinValue)
+            {
+                value = DateTime.Now;
+            }
+
+            value = value.Date;
+            enrollmentDate = value;
+
+        }
     }
 
     public bool IsDeleted
@@ -73,7 +84,15 @@ public class Member
 
     public Membership Membership
     {
-        get => membership; set => membership = value;
+        get => membership;
+        set
+        {
+            if (value is null)
+            {
+                value = new Membership(1, "Aktiv", "En random beskrivelse");
+            }
+            membership = value;
+        }
     }
     #endregion
 }
