@@ -1,5 +1,9 @@
 import { MembersTable } from "@/components/customDataTable/members";
 
 export default function Overview() {
-  return <MembersTable />;
+  return (
+    <div className="overflow-y-auto">
+      <MembersTable />
+    </div>
+  );
 }

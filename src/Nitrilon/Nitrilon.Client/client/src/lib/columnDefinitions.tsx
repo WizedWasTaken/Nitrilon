@@ -151,8 +151,6 @@ export const MemberTableColumn = (
             >
               {row.original.isDeleted ? "Indmeld" : "Udmeld"}
             </DropdownMenuItem>
-
-            <DropdownMenuItem>Se bruger detaljer</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
