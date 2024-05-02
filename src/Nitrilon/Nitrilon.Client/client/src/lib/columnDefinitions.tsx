@@ -248,6 +248,23 @@ export function MemberTableColumn(
                       }
                     />
                   </div>
+                  <div>
+                    <RadioGroup
+                      value={membershipId}
+                      onValueChange={(value) => {
+                        setMembershipId(value as string);
+                      }}
+                    >
+                      <div className="flex space-x-2">
+                        <RadioGroupItem value="1">Aktiv</RadioGroupItem>
+                        <Label>Aktiv</Label>
+                      </div>
+                      <div className="flex space-x-2">
+                        <RadioGroupItem value="2">Passiv</RadioGroupItem>
+                        <Label>Passiv</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
                 </DialogDescription>
                 <DialogFooter>
                   <Button type="submit">Bekræft</Button>
