@@ -72,6 +72,7 @@ export const MemberTableColumn = (
       phoneNumber = phoneNumber.replace("+045", "+45");
       return <div className="text-right">{phoneNumber}</div>;
     },
+    enableSorting: false,
   },
   {
     accessorKey: "email",
