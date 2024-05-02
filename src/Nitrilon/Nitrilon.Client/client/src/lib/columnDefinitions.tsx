@@ -134,13 +134,6 @@ export const MemberTableColumn = (
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Muligheder</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(member.memberId.toString())
-              }
-            >
-              Kopier medlem ID
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
             {/* TODO: Add indmeld og udmeld option */}
             {/* TODO: There's a bug with it not updating the text in "isDeleted" when indmelding or outmelding.  */}
@@ -151,6 +144,9 @@ export const MemberTableColumn = (
               }}
             >
               {row.original.isDeleted ? "Indmeld" : "Udmeld"}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => console.log("Rediger")}>
+              Rediger
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
