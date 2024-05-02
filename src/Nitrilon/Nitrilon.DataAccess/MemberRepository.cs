@@ -102,8 +102,7 @@ public class MemberRepository : Repository
     {
         try
         {
-            string query =
-                $"UPDATE Members SET Name = @Name, PhoneNumber = @PhoneNumber, Email = @Email WHERE MemberId = @MemberId";
+            string query = $"UPDATE Members SET Name = '{member.Name}', PhoneNumber = '{member.PhoneNumber}', Email = '{member.Email}', EnrollmentDate = '{member.EnrollmentDate}', MembershipId = {member.Membership.MembershipId} WHERE MemberId = {member.MemberId}";
 
             Execute(query);
 

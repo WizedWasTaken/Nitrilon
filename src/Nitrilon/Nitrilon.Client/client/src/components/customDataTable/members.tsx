@@ -2,12 +2,13 @@
 "use client";
 
 // Imports
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { DataTable } from "@/components/data-table/data-table";
 import { MemberTableColumn } from "@/lib/columnDefinitions";
 import { Member } from "@/lib/types"; // Ensure you have a Member type defined appropriately
 import MembersTableTop from "@/components/customDataTable/membersTableTop";
 import { toast } from "sonner";
+import { Dialog } from "../ui/dialog";
 
 /*
  * This is the main page for the users section of the admin dashboard.
@@ -17,6 +18,7 @@ import { toast } from "sonner";
 export function MembersTable() {
   // Assuming Member[] is correctly typed according to your needs
   const [members, setMembers] = React.useState<Member[]>([]);
+  const [tempMember, setTempMemberState] = React.useState<Member[]>([]);
 
   React.useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/all`)
@@ -72,6 +74,12 @@ export function MembersTable() {
       });
   };
 
+  function setTempMember(member: Member) {
+    setTempMemberState((prevTempMember) => {
+      return [...prevTempMember, member];
+    });
+  }
+
   // Handler to update member status
   const updateMemberStatus = (memberId: number, isDeleted: boolean) => {
     console.log("27: " + memberId + " " + isDeleted);
@@ -97,12 +105,44 @@ export function MembersTable() {
     });
   };
 
+  const updateMember = (member: Member) => {
+    setTempMemberState((prevTempMember) => {
+      return prevTempMember.filter(
+        (tempMember) => tempMember.memberId !== member.memberId
+      );
+    });
+
+    console.log("updateMember");
+    console.log(member);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/update`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(member),
+    }).then((response) => {
+      if (!response.ok) {
+        console.error("Failed to update member");
+      }
+      setMembers((prevMembers) => {
+        return prevMembers.map((prevMember) => {
+          if (prevMember.memberId === member.memberId) {
+            return member;
+          }
+          return prevMember;
+        });
+      });
+    });
+  };
+
   return (
     <>
       <MembersTableTop members={members} createNewMember={createMember} />
       <DataTable
         data={members}
-        columns={MemberTableColumn(updateMemberStatus)} // Ensure the column definitions are received as expected
+        columns={MemberTableColumn(
+          updateMemberStatus,
+          updateMember,
+          setTempMember
+        )} // Ensure the column definitions are received as expected
       />
     </>
   );
