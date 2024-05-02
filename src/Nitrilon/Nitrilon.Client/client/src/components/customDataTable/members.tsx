@@ -23,7 +23,13 @@ export function MembersTable() {
   React.useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/all`)
       .then((res) => res.json())
-      .then((data: Member[]) => setMembers(data)); // Ensure the correct typing for data fetched
+      .then((data: Member[]) => {
+        console.log(data);
+        setMembers(data);
+      });
+    toast.success("Medlemmerne blev hentet", {
+      duration: 5000,
+    });
   }, []);
 
   const createMember = (
@@ -92,7 +98,8 @@ export function MembersTable() {
       }
     ).then((response) => {
       if (!response.ok) {
-        console.error("Failed to update member status");
+        toast.error("Kunne ikke opdatere medlemmets status");
+        return;
       }
       setMembers((prevMembers) => {
         return prevMembers.map((member) => {
@@ -102,16 +109,11 @@ export function MembersTable() {
           return member;
         });
       });
+      toast.success("Medlemmets status blev opdateret");
     });
   };
 
   const updateMember = (member: Member) => {
-    setTempMemberState((prevTempMember) => {
-      return prevTempMember.filter(
-        (tempMember) => tempMember.memberId !== member.memberId
-      );
-    });
-
     console.log("updateMember");
     console.log(member);
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/update`, {
@@ -120,7 +122,8 @@ export function MembersTable() {
       body: JSON.stringify(member),
     }).then((response) => {
       if (!response.ok) {
-        console.error("Failed to update member");
+        toast.error("Kunne ikke opdatere medlemmet");
+        return;
       }
       setMembers((prevMembers) => {
         return prevMembers.map((prevMember) => {
@@ -130,8 +133,42 @@ export function MembersTable() {
           return prevMember;
         });
       });
+      toast.success("Medlemmet blev opdateret");
     });
   };
+
+  function updateMembership(member: Member) {
+    console.log(member);
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/Member/updateMembership?memberId=${member.memberId}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then((response) => {
+      if (!response.ok) {
+        toast.error("Kunne ikke opdatere brugerens medlemskab");
+        return;
+      }
+      toast.success("Medlemskabet blev opdateret");
+      setMembers((prevMembers) => {
+        return prevMembers.map((prevMember) => {
+          if (prevMember.memberId === member.memberId) {
+            if (member.membership.membershipId === 1) {
+              member.membership.membershipId = 2;
+              member.membership.name = "Passiv";
+            } else {
+              member.membership.membershipId = 1;
+              member.membership.name = "Aktiv";
+            }
+
+            return member;
+          }
+          return prevMember;
+        });
+      });
+    });
+  }
 
   return (
     <>
@@ -140,6 +177,7 @@ export function MembersTable() {
         data={members}
         columns={MemberTableColumn(
           updateMemberStatus,
+          updateMembership,
           updateMember,
           setTempMember
         )} // Ensure the column definitions are received as expected

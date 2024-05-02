@@ -40,6 +40,7 @@ import { toast } from "sonner";
 // ! This is an example table column. Copy columns from UserTableColumns and modify them.
 export function MemberTableColumn(
   updateMemberStatus: (memberId: number, isDeleted: boolean) => void,
+  updateMembership: (member: Member) => void,
   updateMember: (member: Member) => void,
   setTempMember: (member: Member) => void
 ): ColumnDef<Member>[] {
@@ -119,15 +120,17 @@ export function MemberTableColumn(
       },
     },
     {
-      accessorKey: "membership.name",
+      id: "membershipName", // Simple ID without dot notation
+      accessorFn: (row) => (row.membership ? row.membership.name : ""), // Access nested data
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Medlemskab" />
       ),
-      cell: ({ row }) => (
-        <div className="capitalize text-right">
-          {row.original.membership.name}
-        </div>
-      ),
+      cell: ({ row }) => {
+        // Use row.getValue with the column ID to get the current value
+        let membershipName = row.getValue("membershipName");
+        console.log(`${row.original.memberId}: ${membershipName}`);
+        return <div className="text-right">{membershipName as string}</div>;
+      },
     },
     {
       accessorKey: "isDeleted",
@@ -172,27 +175,7 @@ export function MemberTableColumn(
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
-                    fetch(
-                      `${process.env.NEXT_PUBLIC_API_URL}/api/Member/updateMembership?memberId=${member.memberId}`,
-                      {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ membershipId: membershipId }),
-                      }
-                    ).then((response) => {
-                      if (!response.ok) {
-                        toast.error("Kunne ikke opdatere brugerens medlemskab");
-                      }
-                      updateMember({
-                        ...member,
-                        membership: {
-                          ...member.membership,
-                          membershipId: parseInt(membershipId),
-                        },
-                      });
-
-                      toast.success("Medlemskabet blev opdateret");
-                    });
+                    updateMembership(member);
                   }}
                 >
                   Skift medlemskab
