@@ -1,12 +1,5 @@
 "use client";
 
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Nitrilon - Medlemmer",
-  description: "S2 - Nitrilon - Noah A. Nielsen",
-};
-
 import { MembersTable } from "@/components/customDataTable/members";
 
 export default function Overview() {

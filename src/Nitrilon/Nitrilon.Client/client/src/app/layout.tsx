@@ -7,7 +7,7 @@ import { ThemeProvider } from "next-themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nitrilon - Rating",
+  title: "Nitrilon - Noah A. Nielsen",
   description: "S2 - Nitrilon - Noah A. Nielsen",
 };
 
