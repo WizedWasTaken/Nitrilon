@@ -86,11 +86,15 @@ export function MemberTableColumn(
       ),
       cell: ({ row }) => {
         let phoneNumber: string = row.getValue("phoneNumber");
-        phoneNumber = phoneNumber.replace(
-          /(\d{3})(\d{2})(\d{2})(\d{2})(\d{2})/,
-          "+$1 $2 $3 $4 $5"
-        );
-        phoneNumber = phoneNumber.replace("+045", "+45");
+        if (phoneNumber.length >= 0 && phoneNumber.length < 8) {
+          phoneNumber = "Intet telefon nummer oplyst";
+        } else {
+          phoneNumber = phoneNumber.replace(
+            /(\d{3})(\d{2})(\d{2})(\d{2})(\d{2})/,
+            "+$1 $2 $3 $4 $5"
+          );
+          phoneNumber = phoneNumber.replace("+045", "+45");
+        }
         return <div className="text-right">{phoneNumber}</div>;
       },
       enableSorting: false,
@@ -102,7 +106,11 @@ export function MemberTableColumn(
       ),
       cell: ({ row }) => {
         const email: string = row.getValue("email");
-        return <div className="text-right">{email}</div>;
+        return (
+          <div className="text-right">
+            {email ? email : "Ingen email oplyst"}
+          </div>
+        );
       },
     },
     {
