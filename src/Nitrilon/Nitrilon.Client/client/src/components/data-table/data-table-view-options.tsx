@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import React from "react";
+import { CustomColumnDef } from "@/lib/types";
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
@@ -22,6 +23,7 @@ interface DataTableViewOptionsProps<TData> {
 export function DataTableViewOptions<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
+  console.log("Table: ", table.getAllColumns());
   const [sortName, setSortName] = React.useState<string>("name");
 
   const changeSortName = (name: string) => {
@@ -50,7 +52,7 @@ export function DataTableViewOptions<TData>({
               Filter
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-[150px]">
+          <DropdownMenuContent align="end" className="w-[180px]">
             <DropdownMenuLabel>Filter</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {table
@@ -61,6 +63,8 @@ export function DataTableViewOptions<TData>({
                   column.getCanSort()
               )
               .map((column) => {
+                // @ts-ignore
+                const displayName = column.columnDef.meta.name as string;
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
@@ -68,7 +72,7 @@ export function DataTableViewOptions<TData>({
                     checked={column.id === sortName}
                     onCheckedChange={() => changeSortName(column.id)}
                   >
-                    {column.id}
+                    {displayName}
                   </DropdownMenuCheckboxItem>
                 );
               })}
@@ -103,7 +107,8 @@ export function DataTableViewOptions<TData>({
                   checked={column.getIsVisible()}
                   onCheckedChange={(value) => column.toggleVisibility(!!value)}
                 >
-                  {column.id}
+                  {/* @ts-ignore */}
+                  {column.columnDef.meta.name}
                 </DropdownMenuCheckboxItem>
               );
             })}

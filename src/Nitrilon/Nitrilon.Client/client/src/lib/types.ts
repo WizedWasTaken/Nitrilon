@@ -1,3 +1,5 @@
+import { ColumnDef } from "@tanstack/react-table";
+
 export type Event = {
     id: string;
     name: string;
@@ -22,3 +24,7 @@ export type Event = {
     isDeleted: boolean;
     membership: Membership;
   }
+
+  export type CustomColumnDef<T> = ColumnDef<T> & {
+    customName?: string;
+  };

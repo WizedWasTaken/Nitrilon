@@ -32,12 +32,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { MoreHorizontal } from "lucide-react";
 
 // Types
-import { Member, Membership } from "@/lib/types";
+import { Member, CustomColumnDef } from "@/lib/types";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
-import { toast } from "sonner";
 
-// ! This is an example table column. Copy columns from UserTableColumns and modify them.
 export function MemberTableColumn(
   updateMemberStatus: (memberId: number, isDeleted: boolean) => void,
   updateMembership: (member: Member) => void,
@@ -49,6 +47,9 @@ export function MemberTableColumn(
   return [
     {
       id: "select",
+      meta: {
+        name: "Vælg",
+      },
       header: ({ table }) => (
         <Checkbox
           checked={
@@ -71,6 +72,9 @@ export function MemberTableColumn(
     },
     {
       accessorKey: "name",
+      meta: {
+        name: "Navn",
+      },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Navn" />
       ),
@@ -81,6 +85,9 @@ export function MemberTableColumn(
     },
     {
       accessorKey: "phoneNumber",
+      meta: {
+        name: "Telefon nummer",
+      },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Telefonnummer" />
       ),
@@ -101,6 +108,9 @@ export function MemberTableColumn(
     },
     {
       accessorKey: "email",
+      meta: {
+        name: "Email",
+      },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Email" />
       ),
@@ -115,6 +125,9 @@ export function MemberTableColumn(
     },
     {
       accessorKey: "enrollmentDate",
+      meta: {
+        name: "Indmeldelsesdato",
+      },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Indmeldelsesdato" />
       ),
@@ -129,6 +142,9 @@ export function MemberTableColumn(
     },
     {
       id: "membershipName", // Simple ID without dot notation
+      meta: {
+        name: "Medlemskab",
+      },
       accessorFn: (row) => (row.membership ? row.membership.name : ""), // Access nested data
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Medlemskab" />
@@ -142,6 +158,9 @@ export function MemberTableColumn(
     },
     {
       accessorKey: "isDeleted",
+      meta: {
+        name: "Indmeldt",
+      },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Indmeldt" />
       ),
@@ -152,6 +171,9 @@ export function MemberTableColumn(
     },
     {
       id: "actions",
+      meta: {
+        name: "Handlinger",
+      },
       cell: ({ row }) => {
         const member = row.original as Member;
 
