@@ -49,7 +49,7 @@ export function DataTablePagination<TData>({
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
           <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            Side {table.getState().pagination.pageIndex + 1} af{" "}
             {table.getPageCount()}
           </div>
           <Button
