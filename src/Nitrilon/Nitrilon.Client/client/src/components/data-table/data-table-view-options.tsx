@@ -90,7 +90,7 @@ export function DataTableViewOptions<TData>({
             Gem & Vis
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[150px]">
+        <DropdownMenuContent align="end" className="w-[180px]">
           <DropdownMenuLabel>Gem & Vis</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {table
