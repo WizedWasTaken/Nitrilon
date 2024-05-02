@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en" className="min-h-screen dark">
       <link rel="icon" href="/logo.ico" sizes="any" />
 
-      <body className={`${inter.className} min-h-screen`}>
+      <body className={`${inter.className} min-h-screen overflow-x-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
