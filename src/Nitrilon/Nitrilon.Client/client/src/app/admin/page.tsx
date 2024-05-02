@@ -20,6 +20,13 @@ import {
 } from "chart.js";
 import { ModeToggle } from "@/components/ui/dark-mode-toggle";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Nitrilon - Admin",
+  description: "S2 - Nitrilon - Noah A. Nielsen",
+};
+
 // Register the necessary components for a line chart
 ChartJS.register(
   CategoryScale,
