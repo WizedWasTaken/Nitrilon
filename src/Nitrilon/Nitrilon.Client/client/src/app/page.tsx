@@ -64,14 +64,31 @@ export default function Home() {
   useEffect(() => {
     async function fetchEvents() {
       setProgress(41);
-      const response = await fetch(API_EVENTS_URL, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setProgress(84);
-      if (!response.ok) {
+      try {
+        const response = await fetch(API_EVENTS_URL, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setProgress(84);
+        console.log(response.ok);
+        if (!response.ok) {
+          setProgress(100);
+          toast.error("Der skete en teknisk fejl. Prøv igen senere", {
+            description: `${new Date().toLocaleString()}`,
+            action: {
+              label: "Prøv igen",
+              onClick: () => fetchEvents(),
+            },
+          });
+          return setError(true);
+        }
+        const data = await response.json();
+        console.log("Data", data);
+        setProgress(100);
+        setEvents(data);
+      } catch (error) {
         setProgress(100);
         toast.error("Der skete en teknisk fejl. Prøv igen senere", {
           description: `${new Date().toLocaleString()}`,
@@ -80,12 +97,8 @@ export default function Home() {
             onClick: () => fetchEvents(),
           },
         });
-        return setError(true);
+        setError(true);
       }
-      const data = await response.json();
-      console.log("Data", data);
-      setProgress(100);
-      setEvents(data);
     }
 
     fetchEvents();
@@ -95,19 +108,23 @@ export default function Home() {
     (events.length === 0 && !selectedEvent && !showModal) || progress < 100;
 
   return (
-    <main className="flex flex-wrap overflow-auto h-screen min-h-screen justify-between items-center gap-5 p-5">
-      <article className="w-full relative flex justify-between top-0">
-        <div className="flex gap-5">
-          <Button asChild>
-            <Link href="/overview">Medlem overblik</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/admin">Event overblik</Link>
-          </Button>
-        </div>
-        <h1 className="text-4xl font-bold">Vælg et event</h1>
-        {!selectedEvent && !showModal && !isLoading && <ModeToggle />}
-      </article>
+    <main className="flex flex-wrap overflow-auto h-screen min-h-screen justify-between gap-5 p-5">
+      {!selectedEvent && (
+        <article className="w-full relative flex justify-between top-0">
+          <div className="flex gap-5 z-50">
+            <Button asChild>
+              <Link href="/overview">Medlem overblik</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/admin">Event overblik</Link>
+            </Button>
+          </div>
+          <h1 className="text-4xl font-bold absolute text-center w-full">
+            Vælg et event
+          </h1>
+          {!selectedEvent && !showModal && <ModeToggle />}
+        </article>
+      )}
       {!isLoading &&
         events.map((event) => (
           <Card
@@ -177,27 +194,35 @@ export default function Home() {
         </>
       )}
       {showModal && (
-        <section>
+        <section className="absolute top-1/2 w-full text-center">
           <h1 className="text-5xl">Tak for din anmeldelse!</h1>
           <p className="text-3xl text-center">Vi ses snart igen :D</p>
         </section>
       )}
-      {!isLoading && events.length === 0 && error && (
-        <Alert>
-          <AlertTitle>Ingen events</AlertTitle>
-          <AlertDescription>
-            Der er ingen events at vise. Prøv igen senere
-          </AlertDescription>
-        </Alert>
+      {!isLoading && events.length === 0 && !selectedEvent && (
+        <section className="container mx-auto">
+          <Alert>
+            <AlertTitle>Ingen events</AlertTitle>
+            <AlertDescription>
+              Der er ingen events at vise. Prøv igen senere
+            </AlertDescription>
+          </Alert>
+        </section>
       )}
-      {isLoading && <Progress value={progress} className="w-[60%]" />}
+      {isLoading && !error && (
+        <section className="absolute w-full top-[50%] left-[10%]">
+          <Progress value={progress} className="w-[80%]" />
+        </section>
+      )}
       {error && (
-        <Alert>
-          <AlertTitle>Der skete en teknisk fejl</AlertTitle>
-          <AlertDescription>
-            Der skete en teknisk fejl. Prøv igen senere
-          </AlertDescription>
-        </Alert>
+        <section className="container mx-auto">
+          <Alert>
+            <AlertTitle>Fejl</AlertTitle>
+            <AlertDescription>
+              Der skete en teknisk fejl. Prøv igen senere
+            </AlertDescription>
+          </Alert>
+        </section>
       )}
     </main>
   );
