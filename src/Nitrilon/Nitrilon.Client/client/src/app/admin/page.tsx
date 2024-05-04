@@ -19,6 +19,8 @@ import {
   BarElement,
 } from "chart.js";
 import { ModeToggle } from "@/components/ui/dark-mode-toggle";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 // Register the necessary components for a line chart
 ChartJS.register(
@@ -135,9 +137,6 @@ export default function AdminPage() {
 
   return (
     <div className="flex min-h-screen">
-      <div className="absolute w-full flex justify-end px-7">
-        <ModeToggle />
-      </div>
       <aside className="h-screen p-2 join join-vertical hidden xl:block min-w-96 pb-10 overflow-y-scroll pr-7">
         {events.map((event) => (
           <div
@@ -165,11 +164,22 @@ export default function AdminPage() {
         ))}
       </aside>
       {/* Charts container */}
-      <section className="w-full xl:flex hidden flex-col min-h-full max-h-screen gap-5 py-5">
-        <h1 className="text-4xl font-bold text-center w-full">
-          {selectedEvent?.name || "Vælg et event"}{" "}
-          <span>{ratingSum} anmeldelser</span>
-        </h1>
+      <section className="w-full relative xl:flex hidden flex-col min-h-full max-h-screen gap-5 py-5">
+        <article className="px-5 w-full relative flex justify-evenly top-0">
+          <div className="flex gap-5">
+            <Button asChild>
+              <Link href="/">Rating system</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/overview">Medlem overblik</Link>
+            </Button>
+          </div>
+          <h1 className="text-4xl font-bold text-center w-full">
+            {selectedEvent?.name || "Vælg et event"}{" "}
+            <span>{ratingSum} anmeldelser</span>
+          </h1>
+          <ModeToggle />
+        </article>
         <div className="flex-grow flex flex-col gap-3 p-5">
           <div className="flex-grow bg-gray-300 dark:bg-gray-800 rounded-md p-3">
             <Doughnut

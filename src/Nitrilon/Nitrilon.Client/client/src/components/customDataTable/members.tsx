@@ -27,9 +27,6 @@ export function MembersTable() {
         console.log(data);
         setMembers(data);
       });
-    toast.success("Medlemmerne blev hentet", {
-      duration: 5000,
-    });
   }, []);
 
   const createMember = (

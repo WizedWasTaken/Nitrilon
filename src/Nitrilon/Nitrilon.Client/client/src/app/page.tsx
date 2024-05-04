@@ -19,6 +19,8 @@ import { ModeToggle } from "@/components/ui/dark-mode-toggle";
 
 // Types
 import { Event } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 // Variables
 const API_EVENTS_URL = `${
@@ -93,12 +95,19 @@ export default function Home() {
     (events.length === 0 && !selectedEvent && !showModal) || progress < 100;
 
   return (
-    <main className="flex flex-wrap overflow-auto h-screen min-h-screen justify-around items-center gap-5 p-20">
-      {!selectedEvent && !showModal && !isLoading && (
-        <div className="absolute top-5 w-full flex justify-end px-5">
-          <ModeToggle />
+    <main className="flex flex-wrap overflow-auto h-screen min-h-screen justify-between items-center gap-5 p-5">
+      <article className="w-full relative flex justify-between top-0">
+        <div className="flex gap-5">
+          <Button asChild>
+            <Link href="/overview">Medlem overblik</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/admin">Event overblik</Link>
+          </Button>
         </div>
-      )}
+        <h1 className="text-4xl font-bold">Vælg et event</h1>
+        {!selectedEvent && !showModal && !isLoading && <ModeToggle />}
+      </article>
       {!isLoading &&
         events.map((event) => (
           <Card
