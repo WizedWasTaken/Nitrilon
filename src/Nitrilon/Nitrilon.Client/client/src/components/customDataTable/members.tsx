@@ -35,7 +35,7 @@ export function MembersTable() {
     enrollmentDate: Date,
     membershipId: number
   ) => {
-    if (name.length === 0 || phoneNumber.length === 0 || email.length === 0) {
+    if (name.length === 0) {
       toast.error("Udfyld alle felter", {
         duration: 5000,
       });
@@ -48,8 +48,8 @@ export function MembersTable() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name,
-        phoneNumber,
-        email,
+        phoneNumber: phoneNumber ? phoneNumber : null,
+        email: email ? email : null,
         enrollmentDate,
         membershipId,
       }),
