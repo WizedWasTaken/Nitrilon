@@ -288,7 +288,7 @@ export function MemberTableColumn(
                     />
                   </div>
                 </DialogDescription>
-                <DialogFooter>
+                <DialogFooter className="pt-5">
                   <Button type="submit">Bekræft</Button>
                 </DialogFooter>
               </form>
