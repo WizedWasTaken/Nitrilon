@@ -17,7 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-h-screen dark">
+    <html
+      lang="en"
+      className="min-h-screen dark"
+      suppressHydrationWarning={true}
+    >
       <link rel="icon" href="/logo.ico" sizes="any" />
 
       <body className={`${inter.className} min-h-screen overflow-x-hidden`}>
