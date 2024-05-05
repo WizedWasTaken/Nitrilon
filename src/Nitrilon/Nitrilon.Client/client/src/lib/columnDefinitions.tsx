@@ -152,7 +152,6 @@ export function MemberTableColumn(
       cell: ({ row }) => {
         // Use row.getValue with the column ID to get the current value
         let membershipName = row.getValue("membershipName");
-        console.log(`${row.original.memberId}: ${membershipName}`);
         return <div className="text-right">{membershipName as string}</div>;
       },
     },

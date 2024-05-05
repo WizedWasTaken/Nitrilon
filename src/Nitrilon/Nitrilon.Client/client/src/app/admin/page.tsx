@@ -21,6 +21,7 @@ import {
 import { ModeToggle } from "@/components/ui/dark-mode-toggle";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { toast } from "sonner";
 
 // Register the necessary components for a line chart
 ChartJS.register(
@@ -47,7 +48,6 @@ export default function AdminPage() {
 
   useEffect(() => {
     async function fetchEvents() {
-      console.log("Fetching events");
       const response = await fetch(API_EVENTS_URL, {
         method: "GET",
         headers: {
@@ -55,12 +55,10 @@ export default function AdminPage() {
         },
       });
       if (!response.ok) {
-        console.log(response.status, response.statusText);
-        alert("Failed to fetch events");
+        toast.error("Failed to fetch events");
         return;
       }
 
-      console.log(response);
       const data = await response.json();
       setEvents(data);
     }
@@ -127,13 +125,9 @@ export default function AdminPage() {
       }));
     } catch (error) {
       //@ts-ignore
-      alert(error.message);
+      toast.error("Der skete en fejl: " + error.message);
     }
   }
-
-  useEffect(() => {
-    console.log(selectedEvent);
-  }, [selectedEvent]);
 
   return (
     <div className="flex min-h-screen">

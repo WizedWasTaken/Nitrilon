@@ -36,7 +36,6 @@ export default function Home() {
   const [error, setError] = useState(false);
 
   const handleEventClick = useCallback((event: Event) => {
-    console.log("Event clicked", event);
     setEvents([]);
     setSelectedEvent(event);
   }, []);
@@ -72,7 +71,6 @@ export default function Home() {
           },
         });
         setProgress(84);
-        console.log(response.ok);
         if (!response.ok) {
           setProgress(100);
           toast.error("Der skete en teknisk fejl. Prøv igen senere", {
@@ -85,7 +83,6 @@ export default function Home() {
           return setError(true);
         }
         const data = await response.json();
-        console.log("Data", data);
         setProgress(100);
         setEvents(data);
       } catch (error) {

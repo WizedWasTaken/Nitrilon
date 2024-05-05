@@ -28,7 +28,6 @@ export default function MembersTableTop({
   ) => void;
 }) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    console.log("handleSubmit");
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = formData.get("name") as string;

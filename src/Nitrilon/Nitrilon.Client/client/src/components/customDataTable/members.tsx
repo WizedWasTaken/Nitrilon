@@ -24,7 +24,6 @@ export function MembersTable() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/all`)
       .then((res) => res.json())
       .then((data: Member[]) => {
-        console.log(data);
         setMembers(data);
       });
   }, []);
@@ -36,8 +35,6 @@ export function MembersTable() {
     enrollmentDate: Date,
     membershipId: number
   ) => {
-    console.log("createMember");
-    console.log(name);
     if (name.length === 0 || phoneNumber.length === 0 || email.length === 0) {
       toast.error("Udfyld alle felter", {
         duration: 5000,
@@ -85,7 +82,6 @@ export function MembersTable() {
 
   // Handler to update member status
   const updateMemberStatus = (memberId: number, isDeleted: boolean) => {
-    console.log("27: " + memberId + " " + isDeleted);
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/Member?memberId=${memberId}`,
       {
@@ -111,8 +107,6 @@ export function MembersTable() {
   };
 
   const updateMember = (member: Member) => {
-    console.log("updateMember");
-    console.log(member);
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/update`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -135,7 +129,6 @@ export function MembersTable() {
   };
 
   function updateMembership(member: Member) {
-    console.log(member);
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/Member/updateMembership?memberId=${member.memberId}`,
       {

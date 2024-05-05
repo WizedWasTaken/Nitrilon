@@ -23,7 +23,6 @@ interface DataTableViewOptionsProps<TData> {
 export function DataTableViewOptions<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
-  console.log("Table: ", table.getAllColumns());
   const [sortName, setSortName] = React.useState<string>("name");
 
   const changeSortName = (name: string) => {
