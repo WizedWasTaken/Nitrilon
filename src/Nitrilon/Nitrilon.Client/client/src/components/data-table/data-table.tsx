@@ -46,18 +46,6 @@ export function DataTable<TData, TValue>({
 
   const [rowSelection, setRowSelection] = React.useState({});
 
-  // Function to update row data
-  // @ts-ignore
-  const updateRowData = (rowId, newIsDeleted) => {
-    // @ts-ignore
-    setData((currentData) =>
-      // @ts-ignore
-      currentData.map((row) =>
-        row.memberId === rowId ? { ...row, isDeleted: newIsDeleted } : row
-      )
-    );
-  };
-
   const table = useReactTable({
     data,
     columns,
@@ -83,23 +71,23 @@ export function DataTable<TData, TValue>({
       <DataTableViewOptions table={table} />
       <div className="rounded-md border w-full hidden lg:block">
         <Table>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
           <TableBody>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
@@ -117,9 +105,9 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))
             ) : (
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell key={column.id} className="p-1">
+              <TableRow key="skeleton-row">
+                {columns.map((column, index) => (
+                  <TableCell key={index} className="p-1">
                     <Skeleton className="h-7 w-full" />
                   </TableCell>
                 ))}
