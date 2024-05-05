@@ -74,7 +74,7 @@ export default function MembersTableTop({
               type="date"
               defaultValue={new Date().toISOString().split("T")[0]}
             />
-            <DialogFooter>
+            <DialogFooter className="pt-5">
               <DialogClose asChild>
                 <Button variant="secondary">Annuller</Button>
               </DialogClose>
