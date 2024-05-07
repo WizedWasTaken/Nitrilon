@@ -20,6 +20,7 @@ export function MembersTable() {
   const [members, setMembers] = React.useState<Member[]>([]);
   const [tempMember, setTempMemberState] = React.useState<Member[]>([]);
 
+  // Use effect to fetch all members
   React.useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/all`)
       .then((res) => res.json())
@@ -28,6 +29,7 @@ export function MembersTable() {
       });
   }, []);
 
+  // Function to create a new member
   const createMember = (
     name: string,
     phoneNumber: string,
@@ -74,6 +76,7 @@ export function MembersTable() {
       });
   };
 
+  // Function to set a temporary member
   function setTempMember(member: Member) {
     setTempMemberState((prevTempMember) => {
       return [...prevTempMember, member];
@@ -106,6 +109,7 @@ export function MembersTable() {
     });
   };
 
+  // Function to update a member
   const updateMember = (member: Member) => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Member/update`, {
       method: "PUT",
@@ -128,6 +132,7 @@ export function MembersTable() {
     });
   };
 
+  // Function to update membership
   function updateMembership(member: Member) {
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/Member/updateMembership?memberId=${member.memberId}`,

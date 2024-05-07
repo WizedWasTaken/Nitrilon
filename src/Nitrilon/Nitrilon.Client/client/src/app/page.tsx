@@ -190,6 +190,10 @@ export default function Home() {
             </CardHeader>
           </Card>
         ))}
+      {/**
+       * If there is a selected event, the user can rate the event.
+       * The user can rate the event with smiley happy, neutral or angry.
+       */}
       {selectedEvent && !showModal && !isLoading && (
         <div className="h-full w-full flex items-center justify-center space-x-10">
           <h1 className="absolute text-black text-5xl font-bold dark:text-white top-5 w-full text-center">
@@ -224,13 +228,21 @@ export default function Home() {
           </div>
         </div>
       )}
-
+      {/**
+       * If the user has rated the event, a modal will be shown.
+       * The modal will show a message and disappear after 3 seconds.
+       * The user will then be able to rate another event.
+       *  */}
       {showModal && (
         <section className="absolute top-1/2 w-full text-center">
           <h1 className="text-5xl">Tak for din anmeldelse!</h1>
           <p className="text-3xl text-center">Vi ses snart igen :D</p>
         </section>
       )}
+      {/**
+       * If there are no events, a message will be shown.
+       * The message will tell the user that there are no events to show.
+       *  */}
       {!isLoading && events.length === 0 && !selectedEvent && (
         <section className="container mx-auto">
           <Alert>
@@ -241,6 +253,9 @@ export default function Home() {
           </Alert>
         </section>
       )}
+      {/**
+       * If there is an error, an error message will be shown.
+       */}
       {isLoading && !error && <NineSkeletonCardComponents />}
       {error && (
         <section className="container mx-auto">

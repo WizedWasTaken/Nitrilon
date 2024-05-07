@@ -1,3 +1,4 @@
+// Layouts
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
@@ -6,11 +7,17 @@ import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Meta data (not really needed 😎 )
 export const metadata: Metadata = {
   title: "Nitrilon - Noah A. Nielsen",
   description: "S2 - Nitrilon - Noah A. Nielsen",
 };
 
+/**
+ * Layout of the entire page.
+ * @param param0
+ * @returns
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,13 +32,16 @@ export default function RootLayout({
       <link rel="icon" href="/logo.ico" sizes="any" />
 
       <body className={`${inter.className} min-h-screen overflow-x-hidden`}>
+        {/* Theme (Dark, White) */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          {/* Pages */}
           <main>{children}</main>
+          {/* Notification system */}
           <Toaster
             toastOptions={{
               classNames: {
