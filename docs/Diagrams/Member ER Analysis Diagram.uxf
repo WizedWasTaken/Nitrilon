@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="15.1">
+<diagram program="umlet" version="15.0.0">
   <zoom_level>17</zoom_level>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1564</x>
-      <y>306</y>
-      <w>153</w>
-      <h>102</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;10.0;70.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1615</x>
-      <y>119</y>
-      <w>323</w>
-      <h>85</h>
-    </coordinates>
-    <panel_attributes>lt=[Qualification]&lt;-
-m2=1..5,6
-</panel_attributes>
-    <additional_attributes>40.0;20.0;170.0;20.0</additional_attributes>
-  </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>425</x>
-      <y>119</y>
+      <x>663</x>
+      <y>272</y>
       <w>170</w>
       <h>51</h>
     </coordinates>
@@ -39,30 +15,19 @@ m2=1..5,6
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>748</x>
-      <y>119</y>
+      <x>986</x>
+      <y>272</y>
       <w>238</w>
       <h>51</h>
     </coordinates>
-    <panel_attributes>Membership Type</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1547</x>
-      <y>272</y>
-      <w>187</w>
-      <h>51</h>
-    </coordinates>
-    <panel_attributes>Member Status</panel_attributes>
+    <panel_attributes>Memberships </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>578</x>
-      <y>102</y>
+      <x>816</x>
+      <y>255</y>
       <w>204</w>
       <h>85</h>
     </coordinates>
@@ -70,24 +35,13 @@ m2=1..5,6
 m1=1..*
 m2=1
 </panel_attributes>
-    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+    <additional_attributes>100.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1275</x>
-      <y>136</y>
-      <w>170</w>
-      <h>51</h>
-    </coordinates>
-    <panel_attributes>SimpleClass</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>204</x>
-      <y>272</y>
+      <x>442</x>
+      <y>425</y>
       <w>357</w>
       <h>221</h>
     </coordinates>
@@ -104,12 +58,12 @@ Email: nvarchar(128)
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>714</x>
-      <y>272</y>
+      <x>986</x>
+      <y>425</y>
       <w>357</w>
       <h>170</h>
     </coordinates>
-    <panel_attributes>Membership Type
+    <panel_attributes>Memberships 
 --
 MembershipId = {PK}
 *Name: nvarchar(128)*
@@ -119,22 +73,22 @@ MembershipId = {PK}
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>544</x>
-      <y>289</y>
-      <w>204</w>
+      <x>782</x>
+      <y>442</y>
+      <w>238</w>
       <h>85</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 m1=1..*
 m2=1
 </panel_attributes>
-    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>476</x>
-      <y>187</y>
+      <x>714</x>
+      <y>340</y>
       <w>357</w>
       <h>51</h>
     </coordinates>

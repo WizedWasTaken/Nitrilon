@@ -39,7 +39,7 @@ namespace Nitrilon.Api.Controllers
         /// <returns>The event with the specified id.</returns>
         /// <returns>404 if the event is not found.</returns>
         [HttpGet("{id}", Name = "GetEvent")]
-        public IActionResult GetEvent(int id)
+        public ActionResult<Event> GetEvent(int id)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace Nitrilon.Api.Controllers
         /// <returns>Status 200 with found events</returns>
         [HttpGet]
         [Route("GetEventsAfterDate")]
-        public IActionResult GetEventsAfterDate(DateTime date)
+        public ActionResult<List<Event>> GetEventsAfterDate(DateTime date)
         {
             try
             {
@@ -94,8 +94,8 @@ namespace Nitrilon.Api.Controllers
             try
             {
                 EventRepository repo = new();
-                int result = repo.CreateEvent(newEvent);
-                return Ok(result);
+                repo.CreateEvent(newEvent);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -110,7 +110,7 @@ namespace Nitrilon.Api.Controllers
         /// <returns>updated event</returns>
         /// <returns>500 if an exception occurs.</returns>
         [HttpPut("{id}", Name = "UpdateEvent")]
-        public IActionResult UpdateEvent([FromBody] Event updatedEvent)
+        public IActionResult UpdateEvent(Event updatedEvent)
         {
             try
             {

@@ -36,6 +36,7 @@ namespace Nitrilon.Api.Controllers
         /// <param name="RatingId">Rating to give</param>
         /// <returns>Status 200 with id of the new event rating</returns>
         [HttpPost(Name = "AddEventRating")]
+        // Is [FromQuery] actually needed?
         public IActionResult AddEventRating([FromQuery] int EventId, [FromQuery] int RatingId)
         {
             try
