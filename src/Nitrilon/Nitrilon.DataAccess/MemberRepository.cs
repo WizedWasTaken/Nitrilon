@@ -19,6 +19,11 @@ public class MemberRepository : Repository
 
     #region Methods
 
+    /// <summary>
+    /// Method to get all members from the database.
+    /// </summary>
+    /// <returns>All members</returns>
+    /// <exception cref="Exception"></exception>
     public List<Member> GetAllMembers()
     {
         List<Member> members = new List<Member>();
@@ -58,6 +63,12 @@ public class MemberRepository : Repository
         }
     }
 
+    /// <summary>
+    /// Method to create a new member in the database and return the new member.
+    /// </summary>
+    /// <param name="member">Member object</param>
+    /// <returns>New member</returns>
+    /// <exception cref="Exception"></exception>
     public Member CreateMember(Member member)
     {
         try
@@ -78,6 +89,12 @@ public class MemberRepository : Repository
         }
     }
 
+    /// <summary>
+    /// Method to soft delete a member from the database.
+    /// </summary>
+    /// <param name="MemberId">MemberId</param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public bool SoftDelete(int MemberId)
     {
         string query = $"UPDATE Members SET IsDeleted = CASE WHEN IsDeleted = 1 THEN 0 ELSE 1 END WHERE MemberId = {MemberId}";
@@ -98,6 +115,12 @@ public class MemberRepository : Repository
         }
     }
 
+    /// <summary>
+    /// Method to receive a full member object, update the member in the database and return the updated member.
+    /// </summary>
+    /// <param name="member">Member object</param>
+    /// <returns>Updated member object</returns>
+    /// <exception cref="Exception"></exception>
     public Member UpdateMember(Member member)
     {
         try
@@ -118,7 +141,13 @@ public class MemberRepository : Repository
         }
     }
 
-    public Member UpdateMembership(int memberId)
+    /// <summary>
+    /// Method to update an existing member's membership in the database.
+    /// </summary>
+    /// <param name="memberId">The member id of the member that should be updated.</param>
+    /// <returns>Nothing</returns>
+    /// <exception cref="Exception"></exception>
+    public void UpdateMembership(int memberId)
     {
         try
         {
@@ -126,9 +155,6 @@ public class MemberRepository : Repository
                 $"UPDATE Members SET MembershipId = CASE WHEN MembershipId = 1 THEN 2 ELSE 1 END WHERE MemberId = {memberId}";
 
             Execute(query);
-
-            // TODO: FIx this shit
-            return null;
         }
         catch (Exception ex)
         {

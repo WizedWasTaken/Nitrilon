@@ -43,22 +43,60 @@ public class Member
     #region Properties
     public int MemberId
     {
-        get => memberId; set => memberId = value;
+        get => memberId;
+        set
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException("MemberId", "MemberId skal være større end 0");
+            }
+
+            memberId = value;
+        }
     }
 
     public string Name
     {
-        get => name; set => name = value;
+        get => name;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentNullException("Name", "Name må ikke være tom");
+            }
+
+            name = value;
+        }
     }
 
     public string PhoneNumber
     {
-        get => phoneNumber; set => phoneNumber = value;
+        get => phoneNumber;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                phoneNumber = "Intet telefonnummer oplyst";
+                return;
+            }
+
+            phoneNumber = value;
+        }
     }
 
     public string Email
     {
-        get => email; set => email = value;
+        get => email;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                email = "Intet email oplyst";
+                return;
+            }
+
+            email = value;
+        }
     }
 
     public DateTime EnrollmentDate
@@ -79,7 +117,11 @@ public class Member
 
     public bool IsDeleted
     {
-        get => isDeleted; set => isDeleted = value;
+        get => isDeleted;
+        set
+        {
+            isDeleted = value;
+        }
     }
 
     public Membership Membership
@@ -87,10 +129,12 @@ public class Member
         get => membership;
         set
         {
+            // Just to make sure that the membership is never null. If it is, then we create a new membership with some default values.
             if (value is null)
             {
                 value = new Membership(1, "Aktiv", "En random beskrivelse");
             }
+
             membership = value;
         }
     }

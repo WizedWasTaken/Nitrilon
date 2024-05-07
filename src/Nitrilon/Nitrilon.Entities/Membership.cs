@@ -39,20 +39,45 @@ public class Membership
                 value = 1;
             }
 
-            membershipId = value;
+            if (value != membershipId)
+            {
+                membershipId = value;
+            }
         }
     }
 
     public string Name
     {
         get { return name; }
-        set { name = value; }
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                value = "No name";
+            }
+
+            if (name != value)
+            {
+                name = value;
+            }
+        }
     }
 
     public string Description
     {
         get { return description; }
-        set { description = value; }
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                value = "No description";
+            }
+
+            if (description != value)
+            {
+                description = value;
+            }
+        }
     }
     #endregion
 
