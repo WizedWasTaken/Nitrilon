@@ -151,45 +151,38 @@ export default function Home() {
           </Card>
         ))}
       {selectedEvent && !showModal && !isLoading && (
-        <>
-          <h1 className="absolute text-black text-6xl mtext-bold dark:text-white top-10 w-full text-center">
-            Giv din holdning til {selectedEvent?.name}
+        <div className="h-full w-full flex items-center justify-center space-x-10">
+          <h1 className="absolute text-black text-5xl font-bold dark:text-white top-5 w-full text-center">
+            Giv din holdning til {selectedEvent.name}
           </h1>
-          <button
-            className="w-[30%] h-[70%] relative"
-            onClick={() => handleGradeClick(1)}
-          >
+          <div style={{ width: "100%", height: "100%", position: "relative" }}>
             <Image
-              src="/images/emoji/happy.webp"
+              src="/images/emoji/smile.png"
               alt="Happy emoji"
               layout="fill"
               objectFit="contain"
+              unoptimized
             />
-          </button>
-          <button
-            className="w-[30%] h-[70%] text-6xl relative"
-            onClick={() => handleGradeClick(2)}
-          >
+          </div>
+          <div style={{ width: "100%", height: "100%", position: "relative" }}>
             <Image
-              src="/images/emoji/neutral-removebg-preview.png"
-              alt="Emo emoji"
+              src="/images/emoji/neutral.png"
+              alt="Neutral emoji"
               layout="fill"
               objectFit="contain"
             />
-          </button>
-          <button
-            className="w-[30%] h-[70%] text-6xl relative"
-            onClick={() => handleGradeClick(3)}
-          >
+          </div>
+          <div style={{ width: "100%", height: "100%", position: "relative" }}>
             <Image
-              src="/images/emoji/sad.png"
-              alt="Sad emoji"
+              src="/images/emoji/angry.png"
+              alt="Angry emoji"
               layout="fill"
               objectFit="contain"
             />
-          </button>
-        </>
+          </div>
+        </div>
       )}
+
       {showModal && (
         <section className="absolute top-1/2 w-full text-center">
           <h1 className="text-5xl">Tak for din anmeldelse!</h1>
