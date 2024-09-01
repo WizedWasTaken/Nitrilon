@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Options;
+using System.Text.Json.Serialization;
 
 namespace Nitrilon.Api
 {
@@ -12,6 +12,17 @@ namespace Nitrilon.Api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                });
+
+            builder.Services.AddControllers()
+                // Handle cyclic dependencies in JSON:
+                .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             // Cors
             builder.Services.AddCors(options =>
@@ -36,7 +47,6 @@ namespace Nitrilon.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

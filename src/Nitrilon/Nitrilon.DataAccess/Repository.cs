@@ -17,7 +17,7 @@ namespace Nitrilon.DataAccess
             // Needed because of the app being deployed to Azure aswell.
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
-                connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NitrilonDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+                connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
             }
             else
             {
@@ -27,7 +27,14 @@ namespace Nitrilon.DataAccess
             // If statement checking if the connection to the database can be established.
             if (!CanConnect())
             {
-                throw new Exception("Cannot connect to the database");
+                try
+                {
+                    throw new Exception("Cannot connect to database.\nNo further exception");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Cannot connect to database.\n{ex.Message}, {ex.InnerException}");
+                }
             }
         }
 
@@ -44,7 +51,6 @@ namespace Nitrilon.DataAccess
 
             throw new Exception("Connection is already closed");
         }
-
 
         /// <summary>
         /// Method to open a connection to the database.
@@ -101,9 +107,9 @@ namespace Nitrilon.DataAccess
                 sqlConnection.Close();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
     }

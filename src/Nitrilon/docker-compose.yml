@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: ./Nitrilon.Client/client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=https://nitrilon.noahnielsen.dk
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ASPNETCORE_ENVIRONMENT=Production
+      - CONNECTION_STRING=Server=db;Database=NitrilonDB;User Id=sa;Password=yourStrong(!)Password;Encrypt=False;TrustServerCertificate=True;
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "yourStrong(!)Password"
+      MSSQL_PID: "Express"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    ports:
+      - "1433:1433"
+
+volumes:
+  mssql_data:
+
