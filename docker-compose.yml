@@ -3,7 +3,7 @@ version: '3.9'
 services:
   frontend:
     build:
-      context: ./Nitrilon.Client/client
+      context: ./src/Nitrilon/Nitrilon.Client/client
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
@@ -13,7 +13,7 @@ services:
 
   backend:
     build:
-      context: .
+      context: ./src/Nitrilon/
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
