@@ -10,8 +10,6 @@ services:
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_API_URL=https://nitrilon.noahnielsen.dk
-    depends_on:
-      - backend
 
   backend:
     build:
@@ -22,11 +20,4 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:5000
       - ASPNETCORE_ENVIRONMENT=Production
-      - CONNECTION_STRING=Server=db;Database=NitrilonDB;User Id=sa;Password=yourStrong(!)Password;Encrypt=False;TrustServerCertificate=True;
-    depends_on:
-      - db
-
-volumes:
-  mssql_data:
-
-
+      - CONNECTION_STRING=Server=srv-captain--mssql-db;Database=NitrilonDB;User Id=sa;Password=NoahsMSSQLDatabase123!;Encrypt=False;TrustServerCertificate=True;
